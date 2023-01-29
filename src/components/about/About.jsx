@@ -1,8 +1,8 @@
 import React from 'react';
 import './about.css';
-import ME from '../../assets/me-about.jpg';
+import ME from '../../assets/full-me.jpg';
 import { FaAward } from 'react-icons/fa';
-import { FiUsers } from 'react-icons/fi';
+// import { FiUsers } from 'react-icons/fi';
 import { VscFolderLibrary } from 'react-icons/vsc'
 
 const About = () => {
@@ -13,7 +13,7 @@ const About = () => {
             <div className="container about__container">
                 <div className="about__me">
                     <div className="about__me-image">
-                        <img src={ME} alt="loading" />
+                        <img className='about_img' src={ME} alt="loading" />
 
                     </div>
                 </div>
@@ -23,25 +23,25 @@ const About = () => {
                         <article className='about__card'>
                             <FaAward className='about__icon' />
                             <h5>Experience</h5>
-                            <small>3+ Years Working</small>
+                            <small>1+ Years Working</small>
                         </article>
 
-                        <article className='about__card'>
+                        {/* <article className='about__card'>
                             <FiUsers className='about__icon' />
                             <h5>Clients</h5>
                             <small>200+ Worldwide</small>
-                        </article>
+                        </article> */}
 
                         <article className='about__card'>
                             <VscFolderLibrary className='about__icon' />
                             <h5>Projects</h5>
-                            <small>80+ Completed</small>
+                            <small>6+ Completed</small>
                         </article>
 
                     </div>
 
                     <p>
-                        As an SDE in ML Ops & Data Platform you will work closely with the Data Science & ML team to bring models to life for end users. You will also work with the Data Engineering team to code on top of databases that manage databases. You will talk about infrastructure, architecture, latency, scale, impact & cost to Nerds who build models and Devs who write Pipelines.
+                        I currently purshing my B.E Computer Science and Engineering in Government College of Engineering at Salem. I have 6 months of experience as MEAN stack and I have 6 month internship complete on Honeycomb Technology at OH (Virtual Mode). I am a self-motivated person and talkative. My short-term goal is to get a job in a reputed company where I can build my career and help organizations too.
 
                     </p>
 

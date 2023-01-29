@@ -15,6 +15,7 @@
 .portfolio__item:hover {
     border-color: var(--color-primary-variant);
     background: transparent;
+
 }
 
 .portfolio__item-image {
@@ -30,6 +31,10 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
+}
+
+.image {
+    height: 200px;
 }
 
 /* ==========Media Queries (Medium Devices) ========== */

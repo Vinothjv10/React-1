@@ -1,54 +1,54 @@
 import React from 'react'
 import './portfolio.css';
-import IMG1 from '../../assets/portfolio1.jpg';
-import IMG2 from '../../assets/portfolio2.jpg';
-import IMG3 from '../../assets/portfolio3.jpg';
-import IMG4 from '../../assets/portfolio4.jpg';
-import IMG5 from '../../assets/portfolio5.png';
-import IMG6 from '../../assets/portfolio6.jpg';
+import IMG1 from '../../assets/project/honeycomb.png';
+import IMG2 from '../../assets/project/cilogo.png';
+import IMG3 from '../../assets/project/spot-plant.png';
+import IMG4 from '../../assets/project/bisnes.png';
+import IMG5 from '../../assets/project/honeycomb.png';
+import IMG6 from '../../assets/project/logo.png';
 
 const data = [
     {
         id: 1,
         image: IMG1,
-        title: 'sdfsfsf',
-        github: 'dsfs',
-        demo: 'dssdf'
+        title: 'Honeycomb Site',
+        github: 'https://github.com/Vinothjv10/honeycomb-site',
+        demo: 'https://www.honeycombtech.org/'
     },
     {
         id: 2,
         image: IMG2,
-        title: 'sdfsfsf',
-        github: 'dsfs',
-        demo: 'dssdf'
+        title: 'Technoblaze',
+        github: 'https://github.com/Vinothjv10/technoblaze',
+        demo: 'https://technoblaze.netlify.app/'
     },
     {
         id: 3,
         image: IMG3,
-        title: 'sdfsfsf',
-        github: 'dsfs',
-        demo: 'dssdf'
+        title: 'Spot Plant',
+        github: 'https://github.com/Plants-Site/Spot-plant',
+        demo: 'https://plant-6cd6e.web.app/'
     },
     {
         id: 4,
         image: IMG4,
-        title: 'sdfsfsf',
-        github: 'dsfs',
-        demo: 'dssdf'
+        title: 'Company Site',
+        github: 'https://github.com/Vinothjv10/front_end_page',
+        demo: 'https://company-jv.web.app/'
     },
     {
         id: 5,
         image: IMG5,
-        title: 'sdfsfsf',
-        github: 'dsfs',
-        demo: 'dssdf'
+        title: 'Honeycomb Site-2',
+        github: 'https://github.com/Vinothjv10/WT-A1',
+        demo: 'https://companysite-1d719.web.app/'
     },
     {
         id: 6,
         image: IMG6,
-        title: 'sdfsfsf',
-        github: 'dsfs',
-        demo: 'dssdf'
+        title: 'Shiksha',
+        github: 'https://github.com/Vinothjv10/Shiksha',
+        demo: 'https://shiksha-jv.netlify.app/'
     },
 ]
 
@@ -65,7 +65,7 @@ const portfolio = () => {
                         return (
                             <article key={id} className='portfolio__item'>
                                 <div className="portfolio__item-image">
-                                    <img src={image} alt={title} />
+                                    <img className='image' src={image} alt={title} />
                                 </div>
 
                                 <h3>{title}</h3>
