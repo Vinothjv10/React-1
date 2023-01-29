@@ -1,10 +1,13 @@
 import React from 'react'
 import './testimonials.css'
 
-import AVTR1 from '../../assets/avatar1.jpg';
-import AVTR2 from '../../assets/avatar2.jpg';
-import AVTR3 from '../../assets/avatar3.jpg';
-import AVTR4 from '../../assets/avatar4.jpg';
+import AVTR1 from '../../assets/project/honeycomb.png';
+import AVTR2 from '../../assets/project/cilogo.png';
+import AVTR3 from '../../assets/project/spot-plant.png';
+import AVTR4 from '../../assets/project/bisnes.png';
+import AVTR5 from '../../assets/project/logo.png';
+import AVTR6 from '../../assets/project/honeycomb.png';
+
 
 import { Pagination } from 'swiper';
 
@@ -18,22 +21,32 @@ import 'swiper/css/pagination';
 const data = [
     {
         avatar: AVTR1,
-        name: 'sdfsfsd',
+        name: 'HoneyComb',
         review: 'Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.'
     },
     {
         avatar: AVTR2,
-        name: 'sdfsfsd',
+        name: 'Technoblaze',
         review: 'Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.'
     },
     {
         avatar: AVTR3,
-        name: 'sdfsfsd',
+        name: 'Spot Plant',
         review: 'Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.'
     },
     {
         avatar: AVTR4,
-        name: 'sdfsfsd',
+        name: 'Bisnes Company',
+        review: 'Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.'
+    },
+    {
+        avatar: AVTR5,
+        name: 'Shiksha',
+        review: 'Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.'
+    },
+    {
+        avatar: AVTR6,
+        name: 'HoneyComb Site-2',
         review: 'Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.'
     },
 ]
@@ -41,7 +54,7 @@ const data = [
 const Testimonials = () => {
     return (
         <section id='testimonials'>
-            <h5>Review from Clients</h5>
+            <h5>Description for Projects</h5>
             <h2>Testimonials</h2>
 
             <Swiper className="container testimonials__container"

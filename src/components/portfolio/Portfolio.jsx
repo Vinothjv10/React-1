@@ -6,6 +6,8 @@ import IMG3 from '../../assets/project/spot-plant.png';
 import IMG4 from '../../assets/project/bisnes.png';
 import IMG5 from '../../assets/project/honeycomb.png';
 import IMG6 from '../../assets/project/logo.png';
+import IMG7 from '../../assets/project/goshula.png';
+
 
 const data = [
     {
@@ -32,7 +34,7 @@ const data = [
     {
         id: 4,
         image: IMG4,
-        title: 'Company Site',
+        title: 'Bisnes Company',
         github: 'https://github.com/Vinothjv10/front_end_page',
         demo: 'https://company-jv.web.app/'
     },
@@ -50,6 +52,13 @@ const data = [
         github: 'https://github.com/Vinothjv10/Shiksha',
         demo: 'https://shiksha-jv.netlify.app/'
     },
+    {
+        id: 7,
+        image: IMG7,
+        title: 'Goshala',
+        github: 'https://github.com/Vinothjv10/Goshala',
+        demo: ' '
+    },
 ]
 
 
@@ -57,7 +66,7 @@ const portfolio = () => {
     return (
         <section id='portfolio'>
             <h5>My Recent Work</h5>
-            <h2>Portfolio</h2>
+            <h2>Projects</h2>
 
             <div className="container portfolio__container">
                 {
