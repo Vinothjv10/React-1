@@ -41,7 +41,7 @@ const About = () => {
                     </div>
 
                     <p>
-                        I currently purshing my B.E Computer Science and Engineering in Government College of Engineering at Salem. I have 6 months of experience as MEAN stack and I have 6 month internship complete on Honeycomb Technology at OH (Virtual Mode). I am a self-motivated person and talkative. My short-term goal is to get a job in a reputed company where I can build my career and help organizations too.
+                        I currently completed my B.E Computer Science and Engineering in Government College of Engineering at Salem. I have 6 months of experience as MEAN stack and I have 6 month internship complete on Honeycomb Technology at OH (Virtual Mode). I am a self-motivated person and talkative. My short-term goal is to get a job in a reputed company where I can build my career and help organizations too.
 
                     </p>
 
