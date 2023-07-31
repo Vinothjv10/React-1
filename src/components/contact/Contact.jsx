@@ -17,7 +17,7 @@ const Contact = () => {
 
         emailjs.sendForm('service_hemqzii', 'template_8yug0ca', form.current, 'C2Ognrigx7g4n3Z12')
 
-        window.alert("✨🎊 Message Sended Successfully 🎊✨")
+        window.alert("✨🎊 Message Send Successfully 🎊✨")
         e.target.reset()
 
     };
