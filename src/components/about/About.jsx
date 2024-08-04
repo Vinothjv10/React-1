@@ -3,7 +3,7 @@ import './about.css';
 import ME from '../../assets/me-about-2.jpg';
 import { FaAward } from 'react-icons/fa';
 import { TbCertificate } from 'react-icons/tb';
-import { VscFolderLibrary } from 'react-icons/vsc'
+// import { VscFolderLibrary } from 'react-icons/vsc'
 
 const About = () => {
     return (
