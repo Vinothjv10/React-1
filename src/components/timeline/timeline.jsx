@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -11,8 +11,22 @@ import WorkIcon from '@mui/icons-material/Work';
 import GraduationIcon from '@mui/icons-material/School';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import Typography from '@mui/material/Typography';
+import './timeline.css'
 
 export default function CustomizedTimeline() {
+  const [activeItem, setActiveItem] = useState(null);
+
+  const handleClick = (item) => {
+    setActiveItem((prev) => (prev === item ? null : item));
+  };
+
+  const clickableStyle = {
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  };
+
   return (
     <section className="">
       <h2>TIMELINE</h2>
@@ -29,16 +43,26 @@ export default function CustomizedTimeline() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot>
+            <TimelineDot onClick={() => handleClick('college')}>
               <SchoolIcon />
             </TimelineDot>
             <TimelineConnector sx={{ minHeight: '20px' }} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h6" component="span">
+            <Typography
+              variant="h6"
+              component="span"
+              onClick={() => handleClick('college')}
+              // sx={clickableStyle}
+            >
               College Start
             </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)">Started my college journey</Typography>
+            <Typography color="rgba(255, 255, 255, 0.6)">
+              Started my college journey
+            </Typography>
+            {/* {activeItem === 'college' && (
+              <Typography color="rgba(255, 255, 255, 0.6)">Skills</Typography>
+            )} */}
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -47,20 +71,38 @@ export default function CustomizedTimeline() {
             variant="body2"
             color="rgba(255, 255, 255, 0.6)"
           >
-            Aug 2021 - Sep 2022  (1.2 years)
+            Aug 2021 - Sep 2022 (1.2 years)
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot color="primary">
+            <TimelineDot color="primary" onClick={() => handleClick('internship')}>
               <WorkIcon />
             </TimelineDot>
             <TimelineConnector sx={{ minHeight: '20px' }} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h6" component="span">
+            <Typography
+              variant="h6"
+              component="span"
+              onClick={() => handleClick('internship')}
+              sx={clickableStyle}
+            >
               Software Developer (Internship)
             </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)" >Honeycomb Technologies </Typography>
+            <Typography color="rgba(255, 255, 255, 0.6)">
+              Honeycomb Technologies
+            </Typography>
+            {activeItem === 'internship' && (
+              <Typography color="rgba(255, 255, 255, 0.6)">
+                <p className='space'>
+                 NextJS,
+                 ReactJS, AngularJS, Firebase, JavaScript,  NodeJS, Bootstrap, Tailwind, HTML, CSS,
+                 MySQL, SQL,Python, Cloud Firestore,
+                 GitHub, GitLens, Jira,
+                 Agile Methodologies, Software Development Life Cycle (SDLC)
+                </p>
+              </Typography>
+            )}
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -74,16 +116,28 @@ export default function CustomizedTimeline() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot color="primary" variant="outlined">
+            <TimelineDot color="primary" variant="outlined" onClick={() => handleClick('graduation')}>
               <GraduationIcon />
             </TimelineDot>
             <TimelineConnector sx={{ bgcolor: 'secondary.main', minHeight: '20px' }} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h6" component="span">
+            <Typography
+              variant="h6"
+              component="span"
+              onClick={() => handleClick('graduation')}
+              sx={clickableStyle}
+            >
               College Completion
             </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)">Graduated with a degree in Computer Science</Typography>
+            <Typography color="rgba(255, 255, 255, 0.6)">
+              Graduated with a degree in Computer Science
+            </Typography>
+            {activeItem === 'graduation' && (
+              <Typography color="rgba(255, 255, 255, 0.6)">
+                <p className='space'>Advanced Programming, Database Management, AI, SDLC</p>
+              </Typography>
+            )}
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -96,16 +150,30 @@ export default function CustomizedTimeline() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ bgcolor: 'secondary.main', minHeight: '20px' }} />
-            <TimelineDot color="secondary">
+            <TimelineDot color="secondary" onClick={() => handleClick('current')}>
               <EngineeringIcon />
             </TimelineDot>
             <TimelineConnector sx={{ minHeight: '20px' }} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h6" component="span">
+            <Typography
+              variant="h6"
+              component="span"
+              onClick={() => handleClick('current')}
+              sx={clickableStyle}
+            >
               Current Work
             </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)" >Big Data Engineer at Saturam</Typography>
+            <Typography color="rgba(255, 255, 255, 0.6)">
+              Big Data Engineer at Saturam
+            </Typography>
+            {activeItem === 'current' && (
+              <Typography color="rgba(255, 255, 255, 0.6)">
+                <p className='space'>
+                  SQL (MySQL, PostgreSQL, MSSQL), Azure, ADF, Synapse, Microsoft-Fabric, ETL, Airflow, Python, Version control
+                </p>
+              </Typography>
+            )}
           </TimelineContent>
         </TimelineItem>
       </Timeline>
