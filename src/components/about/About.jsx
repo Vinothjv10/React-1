@@ -2,7 +2,7 @@ import React from 'react';
 import './about.css';
 import ME from '../../assets/me-about-2.jpg';
 import { FaAward } from 'react-icons/fa';
-// import { FiUsers } from 'react-icons/fi';
+import { TbCertificate } from 'react-icons/tb';
 import { VscFolderLibrary } from 'react-icons/vsc'
 
 const About = () => {
@@ -26,24 +26,32 @@ const About = () => {
                             <small>1+ Years Working</small>
                         </article>
 
-                        {/* <article className='about__card'>
-                            <FiUsers className='about__icon' />
-                            <h5>Clients</h5>
-                            <small>200+ Worldwide</small>
-                        </article> */}
-
                         <article className='about__card'>
+                            <TbCertificate className='about__icon' />
+                            <h5>Microsoft Certificates</h5>
+                            <div className="tags-container">
+                                <small>DP-100</small>
+                                <small>AZ-400</small>
+                            </div>
+                        </article>
+
+                        {/* <article className='about__card'>
                             <VscFolderLibrary className='about__icon' />
                             <h5>Projects</h5>
                             <small>6+ Completed</small>
-                        </article>
+                        </article> */}
 
                     </div>
+                    <div className="">
+                        <div className='content-p'>
+                        I am currently working as a Big Data Engineer at Saturam. I have earned Microsoft certifications DP-100: Azure Data Scientist Associate (intermediate level) and AZ-400: Designing and Implementing Microsoft DevOps Solutions (expert level). My expertise lies in CI/CD deployment and ETL processing, with a strong understanding of data.
 
-                    <p>
-                        I currently completed my B.E Computer Science and Engineering in Government College of Engineering at Salem. I have 6 months of experience as MEAN stack and I have 6 month internship complete on Honeycomb Technology at OH (Virtual Mode). I am a self-motivated person and talkative. My short-term goal is to get a job in a reputed company where I can build my career and help organizations too.
+                        </div>
+                        <div className='content-p'>
+                        With 1.2 years of work experience in Full-stack development at Honeycomb Technologies, I have worked with various real-time frameworks, including ReactJs, AngularJS, and NextJS. My current passion is in the field of data engineering, where I am continuously learning and exploring numerous tools and technologies.
 
-                    </p>
+                        </div>
+                    </div>
 
                     <a href="#contact" className='btn btn-primary'>
                         Let's Talk
