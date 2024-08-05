@@ -96,8 +96,8 @@ export default function CustomizedTimeline() {
               <Typography color="rgba(255, 255, 255, 0.6)">
                 <p className='space'>
                  NextJS,
-                 ReactJS, AngularJS, Firebase, JavaScript,  NodeJS, Bootstrap, Tailwind, HTML, CSS,
-                 MySQL, SQL,Python, Cloud Firestore,
+                 ReactJS, AngularJS, Firebase, JavaScript, Figma, NodeJS, Bootstrap, Tailwind, HTML, CSS,
+                 MySQL, SQL, Python, Cloud Firestore,
                  GitHub, GitLens, Jira,
                  Agile Methodologies, Software Development Life Cycle (SDLC)
                 </p>
@@ -170,7 +170,7 @@ export default function CustomizedTimeline() {
             {activeItem === 'current' && (
               <Typography color="rgba(255, 255, 255, 0.6)">
                 <p className='space'>
-                  SQL (MySQL, PostgreSQL, MSSQL), Azure, ADF, Synapse, Microsoft-Fabric, ETL, Airflow, Python, Version control
+                  SQL (MySQL, PostgreSQL, MSSQL), Azure, ADF, Synapse, PowerBI, Microsoft-Fabric, ETL, Airflow, Python, Version control
                 </p>
               </Typography>
             )}
