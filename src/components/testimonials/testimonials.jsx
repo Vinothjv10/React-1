@@ -1,5 +1,5 @@
-import React from 'react'
-import './testimonials.css'
+import React from 'react';
+import './testimonials.css';
 
 import AVTR1 from '../../assets/project/honeycomb.png';
 import AVTR2 from '../../assets/project/cilogo.png';
@@ -8,15 +8,13 @@ import AVTR4 from '../../assets/project/bisnes.png';
 import AVTR5 from '../../assets/project/logo.png';
 import AVTR6 from '../../assets/project/honeycomb.png';
 
-
-import { Pagination } from 'swiper';
+import { Pagination, Autoplay } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-
 
 const data = [
     {
@@ -49,7 +47,7 @@ const data = [
         name: 'HoneyComb Site-2',
         review: 'The homepage of the website typically introduces the company and highlights its main products or services. This page might feature a slideshow of images or videos showcasing the company offerings, or a call to action inviting visitors to learn more. This section provides contact information for the company, including email addresses, phone numbers, and social media handles. Visitors can use this information to ask questions, provide feedback, or get help with any issues they may encounter'
     },
-]
+];
 
 const Testimonials = () => {
     return (
@@ -59,18 +57,18 @@ const Testimonials = () => {
 
             <Swiper className="container testimonials__container"
                 // install Swiper modules
-                modules={[Pagination]}
-                spaceBetween={40}   
+                modules={[Pagination, Autoplay]}
+                spaceBetween={40}
                 slidesPerView={1}
                 pagination={{ clickable: true }}
+                autoplay={{ delay: 2000 }} // Autoplay every 3 seconds
             >
                 {
                     data.map(({ avatar, name, review }, index) => {
                         return (
                             <SwiperSlide key={index} className='testimonial'>
                                 <div className="client__avatar">
-                                    <img src={avatar} alt="Avatar one" />
-
+                                    <img src={avatar} alt={name} />
                                 </div>
                                 <h5 className='client__name'>{name}</h5>
                                 <small className='client__review'>
@@ -80,54 +78,9 @@ const Testimonials = () => {
                         )
                     })
                 }
-
-                {/* <article className='testimonial'>
-                    <div className="client__avatar">
-                        <img src={AVTR1} alt="Avatar one" />
-
-                    </div>
-                    <h5 className='client__name'>dfsdfsa</h5>
-                    <small className='client__review'>
-                        Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.
-                    </small>
-                </article>
-
-                <article className='testimonial'>
-                    <div className="client__avatar">
-                        <img src={AVTR2} alt="Avatar one" />
-
-                    </div>
-                    <h5 className='client__name'>dfsdfsa</h5>
-                    <small className='client__review'>
-                        Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.
-                    </small>
-                </article>
-
-                <article className='testimonial'>
-                    <div className="client__avatar">
-                        <img src={AVTR3} alt="Avatar one" />
-
-                    </div>
-                    <h5 className='client__name'>dfsdfsa</h5>
-                    <small className='client__review'>
-                        Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.
-                    </small>
-                </article>
-
-                <article className='testimonial'>
-                    <div className="client__avatar">
-                        <img src={AVTR4} alt="Avatar one" />
-
-                    </div>
-                    <h5 className='client__name'>dfsdfsa</h5>
-                    <small className='client__review'>
-                        Your responses will have no impact on your status as a current or future job applicant. Data collected through this survey is confidential and will not be shared with those responsible for making hiring decisions. Be sure to stay connected to Verizon and check out our Career areas, Verizon Works Careers blog, and Up to Speed daily news program for employees.
-                    </small>
-                </article> */}
-
             </Swiper>
         </section>
-    )
+    );
 }
 
-export default Testimonials
+export default Testimonials;
