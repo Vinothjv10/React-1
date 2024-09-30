@@ -15,9 +15,18 @@ import './timeline.css'
 
 export default function CustomizedTimeline() {
   const [activeItem, setActiveItem] = useState(null);
+  const [hoverItem, setHoverItem] = useState(null);
 
   const handleClick = (item) => {
     setActiveItem((prev) => (prev === item ? null : item));
+  };
+
+  const handleMouseEnter = (item) => {
+    setHoverItem(item);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverItem(null);
   };
 
   const clickableStyle = {
@@ -75,7 +84,9 @@ export default function CustomizedTimeline() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot color="primary" onClick={() => handleClick('internship')}>
+            <TimelineDot color="primary" onClick={() => handleClick('internship')}
+              onMouseEnter={() => handleMouseEnter('internship')}
+              onMouseLeave={handleMouseLeave}>
               <WorkIcon />
             </TimelineDot>
             <TimelineConnector sx={{ minHeight: '20px' }} />
@@ -85,6 +96,8 @@ export default function CustomizedTimeline() {
               variant="h6"
               component="span"
               onClick={() => handleClick('internship')}
+              onMouseEnter={() => handleMouseEnter('internship')}
+              onMouseLeave={handleMouseLeave}
               sx={clickableStyle}
             >
               Software Developer (Internship)
@@ -92,7 +105,7 @@ export default function CustomizedTimeline() {
             <Typography color="rgba(255, 255, 255, 0.6)">
               Honeycomb Technologies
             </Typography>
-            {activeItem === 'internship' && (
+            {(activeItem === 'internship' || hoverItem === 'internship') && (
               <Typography color="rgba(255, 255, 255, 0.6)">
                 <p className='space'>
                  NextJS,
@@ -116,7 +129,9 @@ export default function CustomizedTimeline() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot color="primary" variant="outlined" onClick={() => handleClick('graduation')}>
+            <TimelineDot color="primary" variant="outlined" onClick={() => handleClick('graduation')}
+              onMouseEnter={() => handleMouseEnter('graduation')}
+              onMouseLeave={handleMouseLeave}>
               <GraduationIcon />
             </TimelineDot>
             <TimelineConnector sx={{ bgcolor: 'secondary.main', minHeight: '20px' }} />
@@ -126,6 +141,8 @@ export default function CustomizedTimeline() {
               variant="h6"
               component="span"
               onClick={() => handleClick('graduation')}
+              onMouseEnter={() => handleMouseEnter('graduation')}
+              onMouseLeave={handleMouseLeave}
               sx={clickableStyle}
             >
               College Completion
@@ -133,7 +150,7 @@ export default function CustomizedTimeline() {
             <Typography color="rgba(255, 255, 255, 0.6)">
               Graduated with a degree in Computer Science
             </Typography>
-            {activeItem === 'graduation' && (
+            {(activeItem === 'graduation' || hoverItem === 'graduation') && (
               <Typography color="rgba(255, 255, 255, 0.6)">
                 <p className='space'>Advanced Programming, Database Management, AI, SDLC</p>
               </Typography>
@@ -150,7 +167,9 @@ export default function CustomizedTimeline() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ bgcolor: 'secondary.main', minHeight: '20px' }} />
-            <TimelineDot color="secondary" onClick={() => handleClick('current')}>
+            <TimelineDot color="secondary" onClick={() => handleClick('current')}
+              onMouseEnter={() => handleMouseEnter('current')}
+              onMouseLeave={handleMouseLeave}>
               <EngineeringIcon />
             </TimelineDot>
             <TimelineConnector sx={{ minHeight: '20px' }} />
@@ -160,14 +179,16 @@ export default function CustomizedTimeline() {
               variant="h6"
               component="span"
               onClick={() => handleClick('current')}
+              onMouseEnter={() => handleMouseEnter('current')}
+              onMouseLeave={handleMouseLeave}
               sx={clickableStyle}
             >
-              Current Work
+              Saturam
             </Typography>
             <Typography color="rgba(255, 255, 255, 0.6)">
-              Big Data Engineer at Saturam
+              Big Data Engineer
             </Typography>
-            {activeItem === 'current' && (
+            {(activeItem === 'current' || hoverItem === 'current') && (
               <Typography color="rgba(255, 255, 255, 0.6)">
                 <p className='space'>
                   SQL (MySQL, PostgreSQL, MSSQL), Azure, ADF, Synapse, PowerBI, Microsoft-Fabric, ETL, Airflow, Python, Version control
