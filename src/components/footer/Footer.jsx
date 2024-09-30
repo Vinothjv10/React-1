@@ -2,7 +2,8 @@ import React from 'react'
 import './footer.css'
 
 import { BsWhatsapp } from 'react-icons/bs';
-import { FiInstagram } from 'react-icons/fi'
+// import { FiInstagram, FiLinkedin } from 'react-icons/fi'
+import { RiLinkedinBoxFill } from 'react-icons/ri'
 import { IoLogoTwitter } from 'react-icons/io';
 import { FaGithub } from 'react-icons/fa';
 
@@ -26,7 +27,7 @@ const Footer = () => {
 
                 <div className="footor__socials">
                     <a href="https://wa.me/9385506326" target=" _blank"><BsWhatsapp /></a>
-                    <a href="https://www.instagram.com/i_m_vinoth__/" target=" _blank"><FiInstagram /></a>
+                    <a href="https://www.linkedin.com/in/vinothjv/" target=" _blank"><RiLinkedinBoxFill /></a>
                     <a href="https://twitter.com/Vinoth__J" target=" _blank"><IoLogoTwitter /></a>
                     <a href="https://github.com/Vinothjv10" target=" _blank"><FaGithub /></a>
                 </div>
