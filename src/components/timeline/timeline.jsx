@@ -64,7 +64,7 @@ export default function CustomizedTimeline() {
               onClick={() => handleClick('college')}
               // sx={clickableStyle}
             >
-              College Start
+              Government College of Engineering, Salem
             </Typography>
             <Typography color="rgba(255, 255, 255, 0.6)">
               Started my college journey
@@ -100,10 +100,10 @@ export default function CustomizedTimeline() {
               onMouseLeave={handleMouseLeave}
               sx={clickableStyle}
             >
-              Software Developer (Internship)
+              Honeycomb Technologies
             </Typography>
             <Typography color="rgba(255, 255, 255, 0.6)">
-              Honeycomb Technologies
+              Software Developer (Internship)
             </Typography>
             {(activeItem === 'internship' || hoverItem === 'internship') && (
               <Typography color="rgba(255, 255, 255, 0.6)">
@@ -145,10 +145,10 @@ export default function CustomizedTimeline() {
               onMouseLeave={handleMouseLeave}
               sx={clickableStyle}
             >
-              College Completion
+              Government College of Engineering, Salem
             </Typography>
             <Typography color="rgba(255, 255, 255, 0.6)">
-              Graduated with a degree in Computer Science
+              Graduated with a degree in Computer Science Engineering
             </Typography>
             {(activeItem === 'graduation' || hoverItem === 'graduation') && (
               <Typography color="rgba(255, 255, 255, 0.6)">
