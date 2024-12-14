@@ -23,7 +23,7 @@ const About = () => {
                         <article className='about__card'>
                             <FaAward className='about__icon' />
                             <h5>Experience</h5>
-                            <small>1+ Years Working</small>
+                            <small>1.5+ Years Working</small>
                         </article>
 
                         <article className='about__card'>
@@ -31,6 +31,7 @@ const About = () => {
                             <h5>Microsoft Certificates</h5>
                             <div className="tags-container">
                                 <small>DP-100</small>
+                                <small>DP-600</small>
                                 <small>AZ-400</small>
                             </div>
                         </article>
@@ -44,7 +45,7 @@ const About = () => {
                     </div>
                     <div className="">
                         <div className='content-p'>
-                        I am currently working as a Big Data Engineer at Saturam. I have earned Microsoft certifications DP-100: Azure Data Scientist Associate (intermediate level) and AZ-400: Designing and Implementing Microsoft DevOps Solutions (expert level). My expertise lies in CI/CD deployment and ETL processing, with a strong understanding of data.
+                        I am currently working as a Big Data Engineer at Saturam. I have earned Microsoft certifications DP-100: Azure Data Scientist Associate (intermediate level), DP-600: Fabric Analytics Engineer Associate (intermediate level), and AZ-400: Designing and Implementing Microsoft DevOps Solutions (expert level). My expertise lies in CI/CD deployment and ETL processing, with a strong understanding of data.
 
                         </div>
                         <div className='content-p'>
