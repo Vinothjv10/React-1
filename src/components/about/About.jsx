@@ -1,9 +1,9 @@
 import React from 'react';
 import './about.css';
-import ME from '../../assets/me-about-2.jpg';
+import ME from '../../assets/IMG_3196-new.jpg';
 import { FaAward } from 'react-icons/fa';
 import { TbCertificate } from 'react-icons/tb';
-// import { VscFolderLibrary } from 'react-icons/vsc'
+import { VscFolderLibrary } from 'react-icons/vsc'
 
 const About = () => {
     return (
@@ -21,7 +21,7 @@ const About = () => {
                 <div className="about__content">
                     <div className="about__cards">
                         <article className='about__card'>
-                            <FaAward className='about__icon' />
+                            <VscFolderLibrary className='about__icon' />
                             <h5>Experience</h5>
                             <small>2+ Years Working</small>
                         </article>
@@ -32,25 +32,29 @@ const About = () => {
                             <div className="tags-container">
                                 <small>DP-100</small>
                                 <small>DP-600</small>
-                                <small>AZ-400</small>
+                                <small>DP-700</small>
                             </div>
                         </article>
 
-                        {/* <article className='about__card'>
-                            <VscFolderLibrary className='about__icon' />
-                            <h5>Projects</h5>
-                            <small>6+ Completed</small>
-                        </article> */}
+                        <article className='about__card'>
+                            <FaAward className='about__icon' />
+                            <h5>Awards</h5>
+                            <div className="tags-container">
+                                <small>Budding Star : 2025</small>
+                                <small> Rookie Trophy : 2024</small>
+                            </div>
+                        </article>
 
                     </div>
                     <div className="">
                         <div className='content-p'>
-                        I am currently working as a Big Data Engineer at Saturam. I have earned Microsoft certifications DP-100: Azure Data Scientist Associate (intermediate level), DP-600: Fabric Analytics Engineer Associate (intermediate level), and AZ-400: Designing and Implementing Microsoft DevOps Solutions (expert level). My expertise lies in CI/CD deployment and ETL processing, with a strong understanding of data.
-
+                        Big Data Engineer with hands-on experience in designing, implementing, and optimizing scalable data solutions to solve real-world business challenges.
                         </div>
                         <div className='content-p'>
-                        With 1.2 years of work experience in Full-stack development at Honeycomb Technologies, I have worked with various real-time frameworks, including ReactJs, AngularJS, and NextJS. My current passion is in the field of data engineering, where I am continuously learning and exploring numerous tools and technologies.
-
+                        Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving skills, and leadership. My work spans building robust data pipelines, enabling advanced analytics, and collaborating with cross-functional teams to deliver impactful results.
+                        </div>
+                        <div className='content-p'>
+                        Proficient in Big Data technologies, cloud platforms, and programming languages, I continue to focus on efficient data processing, large-scale transformations, and secure architecture practices. I’m driven by the goal of helping organizations unlock their potential through data in today’s digital world.
                         </div>
                     </div>
 

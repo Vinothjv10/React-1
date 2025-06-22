@@ -1,6 +1,6 @@
 import React from 'react';
 import './testimonials.css';
-
+import AVTR0 from '../../assets/project/bot.gif';
 import AVTR1 from '../../assets/project/honeycomb.png';
 import AVTR2 from '../../assets/project/cilogo.png';
 import AVTR3 from '../../assets/project/spot-plant.png';
@@ -17,6 +17,11 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const data = [
+    {
+        avatar: AVTR0,
+        name: 'NewsnipAI',
+        review: 'Newsnip is an AI-powered application that processes news articles from provided URLs, creates a searchable knowledge base, and answers user questions based on the content of those articles. The application uses natural language processing and dense vector embeddings to understand and retrieve relevant information.'
+    },
     {
         avatar: AVTR1,
         name: 'HoneyComb',

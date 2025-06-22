@@ -1,5 +1,6 @@
 import React from 'react'
 import './portfolio.css';
+import IMG0 from '../../assets/project/bot.gif';
 import IMG1 from '../../assets/project/honeycomb.png';
 import IMG2 from '../../assets/project/cilogo.png';
 import IMG3 from '../../assets/project/spot-plant.png';
@@ -10,6 +11,13 @@ import IMG7 from '../../assets/project/goshula.png';
 
 
 const data = [
+    {
+        id: 0,
+        image: IMG0,
+        title: 'Newsnip AI',
+        github: 'https://github.com/Vinothjv10/Newsnip-AI',
+        demo: 'https://newsnip.netlify.app/'
+    },
     {
         id: 1,
         image: IMG1,
