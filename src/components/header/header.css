@@ -1,5 +1,5 @@
 header {
-    height: 790px;
+    height: 820px;
     padding-top: 7rem;
     overflow: hidden;
 }
@@ -38,19 +38,66 @@ header {
 
 /* ======== ME ======= */
 .me {
-    background: linear-gradient(var(--color-primary), transparent);
-    width: 22rem;
-    height: auto;
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    width: 28vw;
+    /* relative to viewport width */
+    max-width: 28rem;
+    /* keep original max size for larger screens */
+    height: 28vw;
+    max-height: 28rem;
     position: absolute;
-    left: calc(50% - 11rem);
+    left: 50%;
+    transform: translateX(-50%);
+    /* perfectly center regardless of width */
     margin-top: 4rem;
-    border-radius: 12rem 12rem 0 0;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     overflow: hidden;
-    padding: 5rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: morph 8s ease-in-out infinite;
 }
-/* .me-img{
-    object-fit: fill;
-} */
+
+
+.me img {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    margin-top: 130px;
+    animation: floatZoom 8s ease-in-out infinite;
+}
+
+@keyframes floatZoom {
+    0% {
+        transform: translateY(0px) scale(1);
+    }
+
+    50% {
+        transform: translateY(-15px) scale(1.05);
+    }
+
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+
+
+@keyframes morph {
+    0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 40% 60% 70% 30% / 50% 60% 30% 50%;
+    }
+
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+}
+
 
 /* ======== Scroll Down ======= */
 .scroll__down {
@@ -72,11 +119,29 @@ header {
 /* ==========Media Queries (Small Devices) ========== */
 @media screen and (max-width: 600px) {
     header {
-        height: 790px;
+        height: 690px;
     }
 
     .header__socials,
     .scroll__down {
         display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .me {
+        width: 50vw;
+        height: 60vw;
+        padding: 1.5rem;
+        margin-top: 3rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .me {
+        width: 70vw;
+        height: 75vw;
+        padding: 1rem;
+        margin-top: 2rem;
     }
 }

@@ -23,7 +23,16 @@ const About = () => {
                         <article className='about__card'>
                             <VscFolderLibrary className='about__icon' />
                             <h5>Experience</h5>
-                            <small>2+ Years Working</small>
+                            <div className="tags-container">
+                                <div className="tag-row">
+                                    <span className="tag-title">Intern</span>
+                                    <span className="tag-value">1.2 Years</span>
+                                </div>
+                                <div className="tag-row">
+                                    <span className="tag-title">Full Time</span>
+                                    <span className="tag-value">2.5+ Years</span>
+                                </div>
+                            </div>
                         </article>
 
                         <article className='about__card'>
@@ -48,13 +57,13 @@ const About = () => {
                     </div>
                     <div className="">
                         <div className='content-p'>
-                        Big Data Engineer with hands-on experience in designing, implementing, and optimizing scalable data solutions to solve real-world business challenges.
+                            Big Data Engineer with hands-on experience in designing, implementing, and optimizing scalable data solutions to solve real-world business challenges.
                         </div>
                         <div className='content-p'>
-                        Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving skills, and leadership. My work spans building robust data pipelines, enabling advanced analytics, and collaborating with cross-functional teams to deliver impactful results.
+                            Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving skills, and leadership. My work spans building robust data pipelines, enabling advanced analytics, and collaborating with cross-functional teams to deliver impactful results.
                         </div>
                         <div className='content-p'>
-                        Proficient in Big Data technologies, cloud platforms, and programming languages, I continue to focus on efficient data processing, large-scale transformations, and secure architecture practices. I’m driven by the goal of helping organizations unlock their potential through data in today’s digital world.
+                            Proficient in Big Data technologies, cloud platforms, and programming languages, I continue to focus on efficient data processing, large-scale transformations, and secure architecture practices. I’m driven by the goal of helping organizations unlock their potential through data in today’s digital world.
                         </div>
                     </div>
 
