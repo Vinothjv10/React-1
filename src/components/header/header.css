@@ -130,6 +130,7 @@ header {
 
 @media screen and (max-width: 768px) {
     .me {
+        margin-top: 30px;
         width: 50vw;
         height: 60vw;
         padding: 1.5rem;
@@ -139,6 +140,7 @@ header {
 
 @media screen and (max-width: 480px) {
     .me {
+        margin-top: 50px !important;
         width: 70vw;
         height: 75vw;
         padding: 1rem;
