@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -11,11 +11,37 @@ import WorkIcon from '@mui/icons-material/Work';
 import GraduationIcon from '@mui/icons-material/School';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import Typography from '@mui/material/Typography';
-import './timeline.css'
+import './timeline.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CustomizedTimeline() {
   const [activeItem, setActiveItem] = useState(null);
   const [hoverItem, setHoverItem] = useState(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    gsap.fromTo(el.querySelectorAll('.MuiTimelineItem-root'),
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  }, []);
 
   const handleClick = (item) => {
     setActiveItem((prev) => (prev === item ? null : item));
@@ -31,13 +57,16 @@ export default function CustomizedTimeline() {
 
   const clickableStyle = {
     cursor: 'pointer',
+    color: '#ffffff',
+    fontWeight: 600,
     '&:hover': {
       textDecoration: 'underline',
+      color: 'var(--color-primary)',
     },
   };
 
   return (
-    <section className="">
+    <section className="" ref={sectionRef}>
       <h2>TIMELINE</h2>
 
       <Timeline position="alternate">
@@ -62,7 +91,7 @@ export default function CustomizedTimeline() {
               variant="h6"
               component="span"
               onClick={() => handleClick('college')}
-              // sx={clickableStyle}
+              sx={clickableStyle}
             >
               Government College of Engineering, Salem
             </Typography>

@@ -1,16 +1,54 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './contact.css'
-
 import { MdOutlineEmail } from 'react-icons/md'
 import { RiLinkedinBoxFill } from 'react-icons/ri'
 import { BsWhatsapp } from 'react-icons/bs'
-
 import emailjs from 'emailjs-com';
-import { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
     const form = useRef();
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+
+        gsap.fromTo(el.querySelectorAll('.contact__option'),
+            { opacity: 0, y: 30, scale: 0.95 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo(el.querySelector('form'),
+            { opacity: 0, x: 40 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1.0,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    }, []);
 
     const sendEmail = (e) => {
         e.preventDefault();
@@ -23,7 +61,7 @@ const Contact = () => {
     };
 
     return (
-        <section id='contact' >
+        <section id='contact' ref={sectionRef}>
             <h5>Get In Touch</h5>
             <h2>Contact Me</h2>
 

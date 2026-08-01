@@ -13,11 +13,21 @@
 }
 
 .testimonial {
-    background: var(--color-bg-variant);
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     text-align: center;
     padding: 2rem;
     border-radius: 2rem;
     user-select: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: var(--transition);
+}
+
+.testimonial:hover {
+    border-color: rgba(255, 123, 0, 0.3);
+    box-shadow: var(--glow-orange);
 }
 
 .client__review {

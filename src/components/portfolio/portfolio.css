@@ -5,17 +5,21 @@
 }
 
 .portfolio__item {
-    background: var(--color-bg-variant);
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 1.3rem;
     border-radius: 2rem;
-    border: 1px solid transparent;
     transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .portfolio__item:hover {
-    border-color: var(--color-primary-variant);
-    background: transparent;
-
+    background: rgba(255, 123, 0, 0.03);
+    border: 1px solid rgba(255, 123, 0, 0.4);
+    box-shadow: var(--glow-orange);
+    transform: translateY(-5px);
 }
 
 .portfolio__item-image {

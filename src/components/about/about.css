@@ -8,16 +8,14 @@
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 2rem;
-    background: linear-gradient(45deg,
-            transparent,
-            var(--color-primary),
-            transparent);
+    background: linear-gradient(135deg, rgba(255, 123, 0, 0.2), transparent, rgba(255, 123, 0, 0.15));
+    border: 1px solid rgba(255, 123, 0, 0.15);
     display: grid;
     place-items: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 123, 0, 0.05);
 }
 
 .about_img {
-    /* width: 100%; */
     width: 100%;
     aspect-ratio: 1/1;
 }
@@ -25,12 +23,14 @@
 .about__me-image {
     border-radius: 2rem;
     overflow: hidden;
-    transform: rotate(10deg);
+    transform: rotate(5deg);
     transition: var(--transition);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
 
 .about__me-image:hover {
-    transform: rotate(0);
+    transform: rotate(0) scale(1.03);
+    box-shadow: 0 20px 40px rgba(255, 123, 0, 0.15);
 }
 
 .about__cards {
@@ -40,20 +40,22 @@
 }
 
 .about__card {
-    background: var(--color-bg-variant);
-    border: 1px solid transparent;
-    border-radius: 1rem;
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
     padding: 2rem;
     text-align: center;
     transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .about__card:hover {
-    background: transparent;
-    border-radius: var(--color-primary-variant);
-    cursor: default;
-    border: solid 1px rgba(77, 181, 255, 0.4);
-    border-radius: 1rem;
+    background: rgba(255, 123, 0, 0.05);
+    border: 1px solid rgba(255, 123, 0, 0.4);
+    box-shadow: var(--glow-orange);
+    transform: translateY(-5px);
 }
 
 .about__icon {

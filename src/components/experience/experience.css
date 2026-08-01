@@ -5,17 +5,21 @@
 }
 
 .experience__container>div {
-    background: var(--color-bg-variant);
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 2.4rem 5rem;
     border-radius: 2rem;
-    border: 1px soild transparent;
     transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .experience__container>div:hover {
-    background: transparent;
-    border: solid 1px rgba(77, 181, 255, 0.4);
-    cursor: default;
+    background: rgba(255, 123, 0, 0.02);
+    border: 1px solid rgba(255, 123, 0, 0.35);
+    box-shadow: var(--glow-orange);
+    transform: translateY(-5px);
 }
 
 .experience__container>div h3 {

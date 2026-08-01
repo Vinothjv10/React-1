@@ -12,22 +12,28 @@
 }
 
 .contact__option {
-    background: var(--color-bg-variant);
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 1.2rem;
     border-radius: 1.2rem;
     text-align: center;
-    border: 1px solid transparent;
     transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .contact__option:hover {
-    background: transparent;
-    border-color: var(--color-primary-variant);
+    background: rgba(255, 123, 0, 0.04);
+    border-color: rgba(255, 123, 0, 0.4);
+    box-shadow: var(--glow-orange);
+    transform: translateY(-5px);
 }
 
 .contact__option-icon {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    color: var(--color-primary);
 }
 
 .contact__option a {
@@ -47,11 +53,22 @@ input,
 textarea {
     width: 100%;
     padding: 1.5rem;
-    border-radius: 0.5rem;
-    background: transparent;
-    border: 2px solid var(--color-primary-variant);
+    border-radius: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     resize: none;
     color: var(--color-white);
+    transition: var(--transition);
+}
+
+input:focus,
+textarea:focus {
+    background: rgba(255, 123, 0, 0.02);
+    border-color: var(--color-primary);
+    box-shadow: var(--glow-orange);
+    outline: none;
 }
 
 /* ==========Media Queries (Medium Devices) ========== */

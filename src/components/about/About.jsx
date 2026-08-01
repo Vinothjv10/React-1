@@ -1,20 +1,71 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './about.css';
-import ME from '../../assets/IMG_3196-new.jpg';
+import ME from '../../assets/me_dev.png';
 import { FaAward } from 'react-icons/fa';
 import { TbCertificate } from 'react-icons/tb';
-import { VscFolderLibrary } from 'react-icons/vsc'
+import { VscFolderLibrary } from 'react-icons/vsc';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+
+        // Animate profile image
+        gsap.fromTo(el.querySelector('.about__me'),
+            { opacity: 0, x: -50, scale: 0.9 },
+            {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        // Timeline for card contents and buttons
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        tl.fromTo(el.querySelectorAll('.about__card'),
+            { opacity: 0, y: 40, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+        )
+        .fromTo(el.querySelectorAll('.content-p'),
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out' },
+            '-=0.4'
+        )
+        .fromTo(el.querySelector('.about__content > a'),
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' },
+            '-=0.3'
+        );
+    }, []);
+
     return (
-        <section id='about'>
+        <section id='about' ref={sectionRef}>
             <h5>Get To Know</h5>
             <h2>About Me</h2>
             <div className="container about__container">
                 <div className="about__me">
                     <div className="about__me-image">
                         <img className='about_img' src={ME} alt="loading" />
-
                     </div>
                 </div>
 
@@ -30,7 +81,7 @@ const About = () => {
                                 </div>
                                 <div className="tag-row">
                                     <span className="tag-title">Full Time</span>
-                                    <span className="tag-value">2.5+ Years</span>
+                                    <span className="tag-value">3+ Years</span>
                                 </div>
                             </div>
                         </article>
@@ -53,9 +104,9 @@ const About = () => {
                                 <small> Rookie Trophy : 2024</small>
                             </div>
                         </article>
-
                     </div>
-                    <div className="">
+
+                    <div>
                         <div className='content-p'>
                             Big Data Engineer with hands-on experience in designing, implementing, and optimizing scalable data solutions to solve real-world business challenges.
                         </div>

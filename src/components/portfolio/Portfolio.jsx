@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './portfolio.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import IMG0 from '../../assets/project/bot.gif';
 import IMG1 from '../../assets/project/honeycomb.png';
 import IMG2 from '../../assets/project/cilogo.png';
@@ -9,6 +11,7 @@ import IMG5 from '../../assets/project/honeycomb.png';
 import IMG6 from '../../assets/project/logo.png';
 import IMG7 from '../../assets/project/goshula.png';
 
+gsap.registerPlugin(ScrollTrigger);
 
 const data = [
     {
@@ -69,10 +72,33 @@ const data = [
     },
 ]
 
+const Portfolio = () => {
+    const sectionRef = useRef(null);
 
-const portfolio = () => {
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+
+        gsap.fromTo(el.querySelectorAll('.portfolio__item'),
+            { opacity: 0, y: 50, scale: 0.95 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    }, []);
+
     return (
-        <section id='portfolio'>
+        <section id='portfolio' ref={sectionRef}>
             <h5>My Recent Work</h5>
             <h2>Projects</h2>
 
@@ -170,4 +196,4 @@ const portfolio = () => {
     )
 }
 
-export default portfolio
+export default Portfolio

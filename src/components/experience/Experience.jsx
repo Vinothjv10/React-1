@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './experience.css';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+
+        gsap.fromTo(el.querySelectorAll('.experience__container > div'),
+            { opacity: 0, y: 50, scale: 0.95 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    }, []);
+
     return (
-        <section id='experience' className='additional'>
+        <section id='experience' className='additional' ref={sectionRef}>
             <h5>What Skills I Have</h5>
             <h2>My Experience</h2>
 
