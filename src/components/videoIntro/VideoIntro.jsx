@@ -39,48 +39,64 @@ const VideoIntro = () => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 } });
       const chars = nameRef.current.querySelectorAll('.char');
 
-      tl.fromTo(taglineRef.current, 
+      // Initialize foreground video to be sharp and bright
+      gsap.set(videoRef.current, {
+        filter: 'blur(0px) brightness(0.85)',
+        opacity: 0.95
+      });
+
+      // 1. Controls fade in immediately on page load (0.5s) so users can unmute right away
+      gsap.fromTo(controlsRef.current,
+        { opacity: 0, scale: 0.85 },
+        { opacity: 1, scale: 1, duration: 1.0, ease: 'power3.out' },
+        0.5
+      );
+
+      // 2. Video dimming transition at 6.0 seconds (remains sharp, no blur, to show developer clearly)
+      tl.to(videoRef.current, {
+        filter: 'blur(0px) brightness(0.65)',
+        opacity: 0.85,
+        duration: 1.8,
+        ease: 'power2.inOut'
+      }, 6.0)
+      // 3. Stagger-in the typography overlay content after the focus/brightness shift
+      .fromTo(taglineRef.current, 
         { opacity: 0, y: 30 }, 
         { opacity: 1, y: 0 }, 
-        0.3
+        6.2
       )
       .fromTo(nameRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.1 },
-        0.4
+        6.4
       )
       // Staggered 3D letter bounce-in reveal
       .fromTo(chars, 
         { opacity: 0, y: 55, rotateX: -70, scale: 0.8 }, 
         { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.9, stagger: 0.06, ease: 'back.out(1.5)' }, 
-        0.4
+        6.4
       )
       .fromTo(subtitleRef.current, 
         { opacity: 0, y: 35 }, 
         { opacity: 1, y: 0 }, 
-        1.0
+        7.0
       )
       .fromTo(ctasRef.current, 
         { opacity: 0, y: 35 }, 
         { opacity: 1, y: 0 }, 
-        1.2
-      )
-      .fromTo(controlsRef.current,
-        { opacity: 0, scale: 0.85 },
-        { opacity: 1, scale: 1 },
-        1.4
+        7.2
       )
       .fromTo(scrollRef.current, 
         { opacity: 0, y: 25 }, 
         { opacity: 1, y: 0, duration: 0.8 }, 
-        1.6
+        7.5
       );
     });
 
-    // Auto-hide sound badge after 4 seconds
+    // Auto-hide sound badge after 5 seconds of loading
     const badgeTimer = setTimeout(() => {
       setShowSoundBadge(false);
-    }, 4000);
+    }, 5000);
 
     return () => {
       ctx.revert();
