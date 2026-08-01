@@ -24,40 +24,56 @@ const VideoIntro = () => {
   const scrollRef = useRef(null);
   const controlsRef = useRef(null);
 
+  // Split text helper to map each character into an animatable span
+  const splitText = (text) => {
+    return text.split('').map((char, index) => (
+      <span key={index} className="char" style={{ display: 'inline-block', transformOrigin: 'bottom center' }}>
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ));
+  };
+
   useEffect(() => {
     // --- GSAP Entrance Animation ---
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 } });
+      const chars = nameRef.current.querySelectorAll('.char');
 
       tl.fromTo(taglineRef.current, 
-        { opacity: 0, y: 40 }, 
+        { opacity: 0, y: 30 }, 
         { opacity: 1, y: 0 }, 
         0.3
       )
-      .fromTo(nameRef.current, 
-        { opacity: 0, y: 50 }, 
-        { opacity: 1, y: 0 }, 
-        0.5
+      .fromTo(nameRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.1 },
+        0.4
+      )
+      // Staggered 3D letter bounce-in reveal
+      .fromTo(chars, 
+        { opacity: 0, y: 55, rotateX: -70, scale: 0.8 }, 
+        { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.9, stagger: 0.06, ease: 'back.out(1.5)' }, 
+        0.4
       )
       .fromTo(subtitleRef.current, 
-        { opacity: 0, y: 40 }, 
+        { opacity: 0, y: 35 }, 
         { opacity: 1, y: 0 }, 
-        0.7
+        1.0
       )
       .fromTo(ctasRef.current, 
-        { opacity: 0, y: 40 }, 
+        { opacity: 0, y: 35 }, 
         { opacity: 1, y: 0 }, 
-        0.9
+        1.2
       )
       .fromTo(controlsRef.current,
-        { opacity: 0, scale: 0.8 },
+        { opacity: 0, scale: 0.85 },
         { opacity: 1, scale: 1 },
-        1.1
+        1.4
       )
       .fromTo(scrollRef.current, 
-        { opacity: 0, y: 30 }, 
+        { opacity: 0, y: 25 }, 
         { opacity: 1, y: 0, duration: 0.8 }, 
-        1.3
+        1.6
       );
     });
 
@@ -143,8 +159,14 @@ const VideoIntro = () => {
           <span ref={taglineRef} className={styles.tagline}>
             Welcome to my space
           </span>
-          <h1 ref={nameRef} className={styles.name}>
-            Vinoth <span className={styles.lastName}>J</span>
+          <h1 ref={nameRef} className={styles.name} style={{ perspective: '1000px' }}>
+            <span className={styles.firstName}>
+              {splitText("Vinoth")}
+            </span>
+            {'\u00A0'}
+            <span className={styles.lastName}>
+              {splitText("J")}
+            </span>
           </h1>
           <p ref={subtitleRef} className={styles.subtitle}>
             Big Data Engineer with 4+ years of experience designing, building, and optimizing scalable cloud pipelines and high-impact analytics architectures.
