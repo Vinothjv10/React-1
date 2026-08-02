@@ -6,7 +6,7 @@ import {
     SiApacheairflow, SiKubernetes, SiApachekafka, SiGnubash, SiHtml5, SiCss3, 
     SiJavascript, SiBootstrap, SiTailwindcss, SiAngular, SiNextdotjs, SiReact, 
     SiNodedotjs, SiFlask, SiFirebase, SiPhp, SiTypescript, SiFastapi, SiApachespark,
-    SiOpenai, SiPytorch, SiScikitlearn
+    SiOpenai, SiPytorch, SiScikitlearn, SiAmazonaws
 } from 'react-icons/si';
 import { DiDatabase } from 'react-icons/di';
 import { VscAzure } from 'react-icons/vsc';
@@ -50,6 +50,17 @@ const SKILLS_DATA = [
         desc: 'Google Cloud Platform usage focusing on serverless data querying via BigQuery, cloud storage buckets, and general application deployments.',
         projects: 'Personal Projects, Research',
         code: `from google.cloud import storage\n\ndef upload_blob(bucket_name, source_file_name, destination_blob_name):\n    """Uploads a file to the bucket."""\n    storage_client = storage.Client()\n    bucket = storage_client.bucket(bucket_name)\n    blob = bucket.blob(destination_blob_name)\n    blob.upload_from_filename(source_file_name)\n    print(f"File {source_file_name} uploaded to {destination_blob_name}.")`
+    },
+    {
+        id: 'aws',
+        name: 'AWS',
+        category: 'cloud',
+        level: 'Intermediate',
+        icon: 'aws',
+        color: '#ff9900',
+        desc: 'Amazon Web Services integration including S3 bucket storages, Lambda serverless functions, EC2 compute setups, and IAM identity rules.',
+        projects: 'Vinoth, Personal Cloud Deployments',
+        code: `import boto3\n\ns3 = boto3.client('s3')\nresponse = s3.list_objects_v2(Bucket='vinoth-data-bucket')\nfor obj in response.get('Contents', []):\n    print(f"Key: {obj['Key']}, Size: {obj['Size']} B")`
     },
     // Databases
     {
@@ -491,6 +502,7 @@ const getIcon = (iconName, size = 24) => {
     switch (iconName) {
         case 'azure': return <SiMicrosoftazure size={size} />;
         case 'gcp': return <SiGooglecloud size={size} />;
+        case 'aws': return <SiAmazonaws size={size} />;
         case 'mysql': return <SiMysql size={size} />;
         case 'postgresql': return <SiPostgresql size={size} />;
         case 'sqlite': return <SiSqlite size={size} />;
@@ -548,6 +560,47 @@ const Experience = () => {
     const [activeTab, setActiveTab] = useState('overview');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedSkill, setSelectedSkill] = useState(null);
+    const [isInspecting, setIsInspecting] = useState(false);
+    const inspectTimerRef = useRef(null);
+    const [isCategoryLoading, setIsCategoryLoading] = useState(false);
+    const categoryTimerRef = useRef(null);
+
+    const handleSelectSkill = (skill) => {
+        if (inspectTimerRef.current) {
+            clearTimeout(inspectTimerRef.current);
+        }
+        setIsInspecting(true);
+        setSelectedSkill(skill);
+        
+        inspectTimerRef.current = setTimeout(() => {
+            setIsInspecting(false);
+        }, 500);
+    };
+
+    const handleSelectCategory = (catId) => {
+        if (categoryTimerRef.current) {
+            clearTimeout(categoryTimerRef.current);
+        }
+        setIsCategoryLoading(true);
+        setActiveTab(catId);
+        setSelectedSkill(null);
+        
+        categoryTimerRef.current = setTimeout(() => {
+            setIsCategoryLoading(false);
+        }, 1000);
+    };
+
+    useEffect(() => {
+        setIsCategoryLoading(true);
+        categoryTimerRef.current = setTimeout(() => {
+            setIsCategoryLoading(false);
+        }, 1000);
+        return () => {
+            if (categoryTimerRef.current) clearTimeout(categoryTimerRef.current);
+            if (inspectTimerRef.current) clearTimeout(inspectTimerRef.current);
+        };
+    }, []);
+
     const [terminalLogs, setTerminalLogs] = useState([
         'Initializing developer workbench...',
         'Sync status: connected',
@@ -664,10 +717,7 @@ const Experience = () => {
                                         <li key={cat.id}>
                                             <button 
                                                 className={`sidebar-item ${activeTab === cat.id ? 'active' : ''}`}
-                                                onClick={() => {
-                                                    setActiveTab(cat.id);
-                                                    setSelectedSkill(null); // Clear selection on tab change
-                                                }}
+                                                onClick={() => handleSelectCategory(cat.id)}
                                             >
                                                 <span className="sidebar-item-icon">{cat.icon}</span>
                                                 <span className="sidebar-item-name">{cat.name}</span>
@@ -694,7 +744,14 @@ const Experience = () => {
                         {/* Main Work Area */}
                         <div className="experience__workspace">
                             
-                            {activeTab === 'overview' ? (
+                            {isCategoryLoading ? (
+                                <div className="workspace-loading-state">
+                                    <div className="workspace-spinner"></div>
+                                    <p className="workspace-loading-text">
+                                        Compiling workbench layout for {categories.find(c => c.id === activeTab)?.name || activeTab}...
+                                    </p>
+                                </div>
+                            ) : activeTab === 'overview' ? (
                                 /* OVERVIEW DASHBOARD VIEW */
                                 <div className="workbench__dashboard">
                                     <div className="dashboard__header">
@@ -804,7 +861,7 @@ const Experience = () => {
                                                     key={skill.id} 
                                                     className={`skill-card ${selectedSkill?.id === skill.id ? 'active' : ''}`}
                                                     style={{ '--brand-color': skill.color }}
-                                                    onClick={() => setSelectedSkill(skill)}
+                                                    onClick={() => handleSelectSkill(skill)}
                                                 >
                                                     <div className="skill-card-icon" style={{color: skill.color}}>
                                                         {getIcon(skill.icon, 24)}
@@ -828,45 +885,98 @@ const Experience = () => {
 
                                         {/* Inspector Drawer */}
                                         {selectedSkill && (
-                                            <div className="skill-inspector">
-                                                <div className="inspector-header">
-                                                    <div className="inspector-title">
-                                                        <div className="icon-wrapper" style={{color: selectedSkill.color}}>
-                                                            {getIcon(selectedSkill.icon, 28)}
+                                            <div className={`skill-inspector ${isInspecting ? 'loading-state' : ''}`}>
+                                                {isInspecting ? (
+                                                    <div className="inspector-loading-container">
+                                                        <div className="inspector-spinner" style={{ borderLeftColor: selectedSkill.color }}></div>
+                                                        <p className="loading-text" style={{ color: selectedSkill.color }}>
+                                                            Parsing {selectedSkill.name} assets...
+                                                        </p>
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <div className="inspector-header">
+                                                            <div className="inspector-title">
+                                                                <div className="icon-wrapper" style={{color: selectedSkill.color}}>
+                                                                    {getIcon(selectedSkill.icon, 28)}
+                                                                </div>
+                                                                <div>
+                                                                    <h4>{selectedSkill.name}</h4>
+                                                                    <span className="badge" style={{borderColor: selectedSkill.color, color: selectedSkill.color}}>
+                                                                        {selectedSkill.level}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <button className="close-inspector" onClick={() => setSelectedSkill(null)}>
+                                                                <FiX />
+                                                            </button>
                                                         </div>
-                                                        <div>
-                                                            <h4>{selectedSkill.name}</h4>
-                                                            <span className="badge" style={{borderColor: selectedSkill.color, color: selectedSkill.color}}>
-                                                                {selectedSkill.level}
-                                                            </span>
+
+                                                        <div className="inspector-body">
+                                                            <div className="inspector-verify-status">
+                                                                <span className="verify-dot"></span>
+                                                                <span className="verify-text">METADATA SYNC: OK [100%]</span>
+                                                            </div>
+
+                                                            <div className="inspector-section">
+                                                                <h5>COMPETENCY PROFILE</h5>
+                                                                <div className="inspector-stat">
+                                                                    <div className="stat-label">
+                                                                        <span>Expertise Score</span>
+                                                                        <span style={{color: selectedSkill.color}}>
+                                                                            {selectedSkill.level === 'Experienced' ? '94%' : selectedSkill.level === 'Intermediate' ? '76%' : '55%'}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="stat-track">
+                                                                        <div 
+                                                                            className="stat-fill-animated" 
+                                                                            style={{ 
+                                                                                width: selectedSkill.level === 'Experienced' ? '94%' : selectedSkill.level === 'Intermediate' ? '76%' : '55%',
+                                                                                background: selectedSkill.color,
+                                                                                boxShadow: `0 0 10px ${selectedSkill.color}`
+                                                                            }}
+                                                                        ></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="inspector-section">
+                                                                <h5>DESCRIPTION</h5>
+                                                                <p>{selectedSkill.desc}</p>
+                                                            </div>
+
+                                                            <div className="inspector-section">
+                                                                <h5>PROJECTS / ROLES</h5>
+                                                                <p className="highlight-text">{selectedSkill.projects}</p>
+                                                            </div>
+
+                                                            <div className="inspector-section">
+                                                                <h5>DEPENDENCY WORKFLOW</h5>
+                                                                <div className="dep-tree">
+                                                                    <div className="dep-node root-node" style={{ borderColor: selectedSkill.color, color: selectedSkill.color }}>
+                                                                        {selectedSkill.name}
+                                                                    </div>
+                                                                    <div className="dep-line-vertical"></div>
+                                                                    <div className="dep-leafs">
+                                                                        <span className="dep-leaf-node">Production</span>
+                                                                        <span className="dep-leaf-node">ETL Core</span>
+                                                                        <span className="dep-leaf-node">Verified API</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="inspector-section code-section">
+                                                                <div className="code-header">
+                                                                    <FiCode className="code-icon" />
+                                                                    <span>sample_implementation.code</span>
+                                                                </div>
+                                                                <pre className="code-container">
+                                                                    <code>{selectedSkill.code}</code>
+                                                                </pre>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <button className="close-inspector" onClick={() => setSelectedSkill(null)}>
-                                                        <FiX />
-                                                    </button>
-                                                </div>
-
-                                                <div className="inspector-body">
-                                                    <div className="inspector-section">
-                                                        <h5>DESCRIPTION</h5>
-                                                        <p>{selectedSkill.desc}</p>
-                                                    </div>
-
-                                                    <div className="inspector-section">
-                                                        <h5>PROJECTS / ROLES</h5>
-                                                        <p className="highlight-text">{selectedSkill.projects}</p>
-                                                    </div>
-
-                                                    <div className="inspector-section code-section">
-                                                        <div className="code-header">
-                                                            <FiCode className="code-icon" />
-                                                            <span>sample_implementation.code</span>
-                                                        </div>
-                                                        <pre className="code-container">
-                                                            <code>{selectedSkill.code}</code>
-                                                        </pre>
-                                                    </div>
-                                                </div>
+                                                    </>
+                                                )}
                                             </div>
                                         )}
                                     </div>
