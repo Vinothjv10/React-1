@@ -91,7 +91,7 @@ const Portfolio = () => {
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 85%',
-                    toggleActions: 'play none none none'
+                    toggleActions: 'restart reset restart reset'
                 }
             }
         );

@@ -29,7 +29,7 @@ const Contact = () => {
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 85%',
-                    toggleActions: 'play none none none'
+                    toggleActions: 'restart reset restart reset'
                 }
             }
         );
@@ -44,7 +44,7 @@ const Contact = () => {
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 85%',
-                    toggleActions: 'play none none none'
+                    toggleActions: 'restart reset restart reset'
                 }
             }
         );

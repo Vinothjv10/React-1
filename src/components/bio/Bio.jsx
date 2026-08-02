@@ -68,7 +68,7 @@ const Bio = () => {
         scrollTrigger: {
           trigger: el,
           start: 'top 75%',
-          toggleActions: 'play none none none'
+          toggleActions: 'restart reset restart reset'
         }
       }
     );
@@ -84,7 +84,7 @@ const Bio = () => {
         scrollTrigger: {
           trigger: el,
           start: 'top 75%',
-          toggleActions: 'play none none none'
+          toggleActions: 'restart reset restart reset'
         }
       }
     );
@@ -100,7 +100,7 @@ const Bio = () => {
         scrollTrigger: {
           trigger: el,
           start: 'top 75%',
-          toggleActions: 'play none none none'
+          toggleActions: 'restart reset restart reset'
         }
       }
     );

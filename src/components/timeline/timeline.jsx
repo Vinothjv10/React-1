@@ -17,11 +17,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const itemsList = ['college', 'internship', 'graduation', 'current'];
+
 export default function CustomizedTimeline() {
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState('college'); // Starts on the first card
   const [hoverItem, setHoverItem] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef(null);
 
+
+  // Staggered scroll entrance animation
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -37,36 +42,52 @@ export default function CustomizedTimeline() {
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
-          toggleActions: 'play none none none'
+          toggleActions: 'restart reset restart reset'
         }
       }
     );
   }, []);
 
+  // Autoplay cycle effect: advances the active card every 3 seconds
+  useEffect(() => {
+    if (isPaused || hoverItem !== null) return;
+
+    const interval = setInterval(() => {
+      setActiveItem((prev) => {
+        const currentIndex = itemsList.indexOf(prev);
+        const nextIndex = (currentIndex + 1) % itemsList.length;
+        return itemsList[nextIndex];
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, hoverItem]);
+
   const handleClick = (item) => {
-    setActiveItem((prev) => (prev === item ? null : item));
+    setActiveItem(item);
   };
 
   const handleMouseEnter = (item) => {
     setHoverItem(item);
+    setIsPaused(true);
   };
 
   const handleMouseLeave = () => {
     setHoverItem(null);
+    setIsPaused(false);
   };
 
-  const clickableStyle = {
-    cursor: 'pointer',
-    color: '#ffffff',
-    fontWeight: 600,
-    '&:hover': {
-      textDecoration: 'underline',
-      color: 'var(--color-primary)',
-    },
+  // Helper function to split comma-separated skills into clean styled badges
+  const renderSkills = (skillsString) => {
+    return skillsString.split(',').map((skill, index) => (
+      <span key={index} className="timeline__skill-chip">
+        {skill.trim()}
+      </span>
+    ));
   };
 
   return (
-    <section className="" ref={sectionRef}>
+    <section id="timeline" className="timeline-section" ref={sectionRef}>
       <h2>TIMELINE</h2>
 
       <Timeline position="alternate">
@@ -75,155 +96,180 @@ export default function CustomizedTimeline() {
             sx={{ m: 'auto 0' }}
             align="right"
             variant="body2"
-            color="rgba(255, 255, 255, 0.6)"
           >
             Sept 2019
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot onClick={() => handleClick('college')}>
+            <TimelineConnector />
+            <TimelineDot 
+              onClick={() => handleClick('college')}
+              onMouseEnter={() => handleMouseEnter('college')}
+              onMouseLeave={handleMouseLeave}
+              style={{
+                borderColor: (activeItem === 'college' || hoverItem === 'college') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
+              }}
+            >
               <SchoolIcon />
             </TimelineDot>
-            <TimelineConnector sx={{ minHeight: '20px' }} />
+            <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography
-              variant="h6"
-              component="span"
+            <div 
+              className={`timeline__card ${activeItem === 'college' ? 'active' : ''} ${hoverItem === 'college' ? 'hovered' : ''}`}
               onClick={() => handleClick('college')}
-              sx={clickableStyle}
+              onMouseEnter={() => handleMouseEnter('college')}
+              onMouseLeave={handleMouseLeave}
             >
-              Government College of Engineering, Salem
-            </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)">
-              Started my college journey
-            </Typography>
-            {/* {activeItem === 'college' && (
-              <Typography color="rgba(255, 255, 255, 0.6)">Skills</Typography>
-            )} */}
+              <Typography variant="h6" component="div" className="timeline__card-title">
+                Government College of Engineering, Salem
+              </Typography>
+              <Typography className="timeline__card-subtitle">
+                Computer Science & Engineering
+              </Typography>
+              <Typography className="timeline__card-description">
+                Began my undergraduate journey in engineering, laying down core foundations in software and computing concepts.
+              </Typography>
+              <div className="timeline__skills">
+                {renderSkills("C, C++, Data Structures, Algorithms, Computer Architecture, Digital Electronics")}
+              </div>
+            </div>
           </TimelineContent>
         </TimelineItem>
+
         <TimelineItem>
           <TimelineOppositeContent
             sx={{ m: 'auto 0' }}
             variant="body2"
-            color="rgba(255, 255, 255, 0.6)"
           >
             Aug 2021 - Sep 2022 (1.2 years)
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot color="primary" onClick={() => handleClick('internship')}
-              onMouseEnter={() => handleMouseEnter('internship')}
-              onMouseLeave={handleMouseLeave}>
-              <WorkIcon />
-            </TimelineDot>
-            <TimelineConnector sx={{ minHeight: '20px' }} />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography
-              variant="h6"
-              component="span"
+            <TimelineConnector />
+            <TimelineDot 
+              color="primary" 
               onClick={() => handleClick('internship')}
               onMouseEnter={() => handleMouseEnter('internship')}
               onMouseLeave={handleMouseLeave}
-              sx={clickableStyle}
+              style={{
+                borderColor: (activeItem === 'internship' || hoverItem === 'internship') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
+              }}
             >
-              Honeycomb Technologies
-            </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)">
-              Software Developer (Internship)
-            </Typography>
-            {(activeItem === 'internship' || hoverItem === 'internship') && (
-              <Typography color="rgba(255, 255, 255, 0.6)">
-                <p className='space'>
-                 NextJS,
-                 ReactJS, AngularJS, Firebase, JavaScript, Figma, NodeJS, Bootstrap, Tailwind, HTML, CSS,
-                 MySQL, SQL, Python, Cloud Firestore,
-                 GitHub, GitLens, Jira,
-                 Agile Methodologies, Software Development Life Cycle (SDLC)
-                </p>
+              <WorkIcon />
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <div 
+              className={`timeline__card ${activeItem === 'internship' ? 'active' : ''} ${hoverItem === 'internship' ? 'hovered' : ''}`}
+              onClick={() => handleClick('internship')}
+              onMouseEnter={() => handleMouseEnter('internship')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Typography variant="h6" component="div" className="timeline__card-title">
+                Honeycomb Technologies
               </Typography>
-            )}
+              <Typography className="timeline__card-subtitle">
+                Software Developer (Internship)
+              </Typography>
+              <Typography className="timeline__card-description">
+                Developed web interfaces and full-stack utilities, participating in agile sprint schedules.
+              </Typography>
+              <div className="timeline__skills">
+                {renderSkills("NextJS, ReactJS, AngularJS, Firebase, JavaScript, Figma, NodeJS, Bootstrap, Tailwind, HTML, CSS, MySQL, SQL, Python, Cloud Firestore, GitHub, GitLens, Jira, Agile SDLC")}
+              </div>
+            </div>
           </TimelineContent>
         </TimelineItem>
+
         <TimelineItem>
           <TimelineOppositeContent
             sx={{ m: 'auto 0' }}
             align="right"
             variant="body2"
-            color="rgba(255, 255, 255, 0.6)"
           >
             March 2023
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector sx={{ minHeight: '20px' }} />
-            <TimelineDot color="primary" variant="outlined" onClick={() => handleClick('graduation')}
-              onMouseEnter={() => handleMouseEnter('graduation')}
-              onMouseLeave={handleMouseLeave}>
-              <GraduationIcon />
-            </TimelineDot>
-            <TimelineConnector sx={{ bgcolor: 'secondary.main', minHeight: '20px' }} />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography
-              variant="h6"
-              component="span"
+            <TimelineConnector />
+            <TimelineDot 
+              color="primary" 
+              variant="outlined" 
               onClick={() => handleClick('graduation')}
               onMouseEnter={() => handleMouseEnter('graduation')}
               onMouseLeave={handleMouseLeave}
-              sx={clickableStyle}
+              style={{
+                borderColor: (activeItem === 'graduation' || hoverItem === 'graduation') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
+              }}
             >
-              Government College of Engineering, Salem
-            </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)">
-              Graduated with a degree in Computer Science Engineering
-            </Typography>
-            {(activeItem === 'graduation' || hoverItem === 'graduation') && (
-              <Typography color="rgba(255, 255, 255, 0.6)">
-                <p className='space'>Advanced Programming, Database Management, AI, SDLC</p>
+              <GraduationIcon />
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <div 
+              className={`timeline__card ${activeItem === 'graduation' ? 'active' : ''} ${hoverItem === 'graduation' ? 'hovered' : ''}`}
+              onClick={() => handleClick('graduation')}
+              onMouseEnter={() => handleMouseEnter('graduation')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Typography variant="h6" component="div" className="timeline__card-title">
+                Government College of Engineering, Salem
               </Typography>
-            )}
+              <Typography className="timeline__card-subtitle">
+                Computer Science Graduate
+              </Typography>
+              <Typography className="timeline__card-description">
+                Graduated with a Bachelor's Degree in Computer Science Engineering, mastering database systems and software engineering.
+              </Typography>
+              <div className="timeline__skills">
+                {renderSkills("Advanced Programming, Database Management, Artificial Intelligence, Software Testing, SDLC")}
+              </div>
+            </div>
           </TimelineContent>
         </TimelineItem>
+
         <TimelineItem>
           <TimelineOppositeContent
             sx={{ m: 'auto 0' }}
             variant="body2"
-            color="rgba(255, 255, 255, 0.6)"
           >
             Aug 2023 - Present
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector sx={{ bgcolor: 'secondary.main', minHeight: '20px' }} />
-            <TimelineDot color="secondary" onClick={() => handleClick('current')}
-              onMouseEnter={() => handleMouseEnter('current')}
-              onMouseLeave={handleMouseLeave}>
-              <EngineeringIcon />
-            </TimelineDot>
-            <TimelineConnector sx={{ minHeight: '20px' }} />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography
-              variant="h6"
-              component="span"
+            <TimelineConnector />
+            <TimelineDot 
+              color="secondary" 
               onClick={() => handleClick('current')}
               onMouseEnter={() => handleMouseEnter('current')}
               onMouseLeave={handleMouseLeave}
-              sx={clickableStyle}
+              style={{
+                borderColor: (activeItem === 'current' || hoverItem === 'current') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
+              }}
             >
-              Saturam
-            </Typography>
-            <Typography color="rgba(255, 255, 255, 0.6)">
-              Big Data Engineer
-            </Typography>
-            {(activeItem === 'current' || hoverItem === 'current') && (
-              <Typography color="rgba(255, 255, 255, 0.6)">
-                <p className='space'>
-                  SQL (MySQL, PostgreSQL, MSSQL), Azure, ADF, Synapse, PowerBI, Microsoft-Fabric, ETL, Airflow, Python, Version control
-                </p>
+              <EngineeringIcon />
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <div 
+              className={`timeline__card ${activeItem === 'current' ? 'active' : ''} ${hoverItem === 'current' ? 'hovered' : ''}`}
+              onClick={() => handleClick('current')}
+              onMouseEnter={() => handleMouseEnter('current')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Typography variant="h6" component="div" className="timeline__card-title">
+                Saturam
               </Typography>
-            )}
+              <Typography className="timeline__card-subtitle">
+                Big Data Engineer
+              </Typography>
+              <Typography className="timeline__card-description">
+                Designing, deploying, and maintaining secure Big Data storage, analytical ETL solutions, and workflow orchestrations.
+              </Typography>
+              <div className="timeline__skills">
+                {renderSkills("SQL (MySQL, PostgreSQL, MSSQL), Azure, ADF, Synapse, PowerBI, Fabric, ETL, Airflow, Python, Version Control, Data Lakehouse")}
+              </div>
+            </div>
           </TimelineContent>
         </TimelineItem>
       </Timeline>

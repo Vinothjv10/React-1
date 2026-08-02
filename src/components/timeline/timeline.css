@@ -1,3 +1,304 @@
-.space{
+.timeline-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem 4rem;
+    box-sizing: border-box;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #0d0d1c 0%, #030308 100%);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+.timeline-section h2 {
+    color: var(--color-primary);
+    margin-bottom: 3.5rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Material UI Overrides */
+.MuiTimeline-root {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.MuiTimelineItem-root {
+    min-height: 220px; /* Taller base container height to prevent shifting with 190px cards */
+}
+
+/* Custom styled timeline dot */
+.MuiTimelineDot-root {
+    background-color: rgba(10, 10, 20, 0.9) !important;
+    border: 2px solid rgba(255, 123, 0, 0.3) !important;
+    box-shadow: 0 0 15px rgba(255, 123, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.5) !important;
+    color: var(--color-primary) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer;
+    padding: 10px !important;
+    z-index: 10;
+}
+
+.MuiTimelineItem-root:hover .MuiTimelineDot-root {
+    border-color: #ff9d42 !important;
+    box-shadow: 0 0 25px rgba(255, 123, 0, 0.4), inset 0 0 10px rgba(255, 123, 0, 0.2) !important;
+    transform: scale(1.18);
+    background-color: rgba(255, 123, 0, 0.08) !important;
+}
+
+/* Animated Flowing Timeline Connector Line */
+.MuiTimelineConnector-root {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 123, 0, 0.75) 50%,
+        rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+    background-size: 100% 200% !important;
+    animation: connectorFlow 2.8s linear infinite !important;
+    width: 2.5px !important;
+    box-shadow: 0 0 8px rgba(255, 123, 0, 0.25);
+}
+
+@keyframes connectorFlow {
+    0% {
+        background-position: 0% 200%;
+    }
+    100% {
+        background-position: 0% -200%;
+    }
+}
+
+.MuiTimelineItem-root:hover .MuiTimelineConnector-root {
+    animation-duration: 1.5s !important; /* Speed up flow on hover to indicate focus */
+    box-shadow: 0 0 12px rgba(255, 123, 0, 0.4);
+}
+
+.MuiTimelineOppositeContent-root {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    color: var(--color-light) !important;
+    transition: color 0.3s ease;
+}
+
+.MuiTimelineItem-root:hover .MuiTimelineOppositeContent-root {
+    color: var(--color-white) !important;
+}
+
+/* Timeline Custom Glassmorphic Card styling */
+.timeline__card {
+    background: rgba(15, 15, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 1.2rem;
+    padding: 1.2rem 1.4rem;
+    text-align: left;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 440px;
+    height: 160px; /* Reduced static height to make it compact */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.timeline__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 123, 0, 0.05), transparent 50%);
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+/* Autoplay active state (No translate, no skills reveal, just border & subtle glow) */
+.timeline__card.active {
+    background: rgba(20, 20, 35, 0.9);
+    border-color: rgba(255, 123, 0, 0.4);
+    box-shadow: 0 12px 25px rgba(255, 123, 0, 0.12),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.timeline__card.active::before {
+    background: radial-gradient(circle at top right, rgba(255, 123, 0, 0.1), transparent 50%);
+}
+
+.timeline__card.active .timeline__card-title {
+    color: var(--color-primary);
+}
+
+/* Hover and hovered states (Translate up, hide description, reveal skills) */
+.timeline__card:hover,
+.timeline__card.hovered {
+    background: rgba(24, 20, 38, 0.96);
+    border-color: var(--color-primary);
+    box-shadow: 0 15px 35px rgba(255, 123, 0, 0.22),
+                inset 0 1px 2px rgba(255, 123, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.timeline__card:hover::before,
+.timeline__card.hovered::before {
+    background: radial-gradient(circle at top right, rgba(255, 123, 0, 0.15), transparent 50%);
+}
+
+.timeline__card:hover .timeline__card-title,
+.timeline__card.hovered .timeline__card-title {
+    color: var(--color-primary);
+}
+
+/* Card inner texts styling */
+.timeline__card-title {
+    font-size: 0.98rem !important;
+    font-weight: 600 !important;
+    color: var(--color-white);
+    margin-bottom: 0.2rem !important;
+    transition: color 0.3s ease;
+}
+
+.timeline__card-subtitle {
+    font-size: 0.8rem !important;
+    color: var(--color-light);
+    margin-bottom: 0.5rem !important;
+}
+
+/* Swap: Description is shown by default, collapses and hides on hover/hovered */
+.timeline__card-description {
+    font-size: 0.82rem !important;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4 !important;
+    opacity: 1;
+    max-height: 75px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.timeline__card:hover .timeline__card-description,
+.timeline__card.hovered .timeline__card-description {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+}
+
+/* Swap: Skills container is hidden by default, expands and reveals on hover/hovered */
+.timeline__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.6rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 0;
+    overflow-y: auto;
+}
+
+.timeline__card:hover .timeline__skills,
+.timeline__card.hovered .timeline__skills {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 78px; /* Safe height inside the card bounds */
+}
+
+/* Custom styled chip tags for skills */
+.timeline__skill-chip {
+    display: inline-block;
+    font-size: 0.68rem;
+    color: var(--color-primary);
+    background: rgba(255, 123, 0, 0.08);
+    border: 1px solid rgba(255, 123, 0, 0.2);
+    padding: 0.15rem 0.45rem;
+    border-radius: 0.35rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.timeline__card:hover .timeline__skill-chip,
+.timeline__card.active .timeline__skill-chip {
+    background: rgba(255, 123, 0, 0.15);
+    border-color: rgba(255, 123, 0, 0.4);
+    color: var(--color-white);
+}
+
+/* Custom scrollbar for timeline card skills container */
+.timeline__skills::-webkit-scrollbar {
+    width: 3px;
+    display: block;
+}
+
+.timeline__skills::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.timeline__skills::-webkit-scrollbar-thumb {
+    background: rgba(255, 123, 0, 0.3);
+    border-radius: 2px;
+}
+
+/* Card placement alignment tweaks */
+.MuiTimelineItem-root:nth-child(odd) .timeline__card {
+    margin-right: auto;
+}
+
+.MuiTimelineItem-root:nth-child(even) .timeline__card {
+    margin-left: auto;
+}
+
+/* Space padding utility fallback */
+.space {
     padding-top: 10px;
+}
+
+/* ==========Media Queries (Medium & Small Devices) ========== */
+@media screen and (max-width: 1024px) {
+    .timeline__card {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .timeline-section {
+        padding: 6rem 1rem 3rem;
+    }
+    
+    .timeline-section h2 {
+        margin-bottom: 2rem;
+    }
+    
+    .MuiTimelineItem-root {
+        min-height: 250px;
+    }
+    
+    .timeline__card {
+        height: auto;
+        min-height: 180px;
+        max-height: none;
+        max-width: 100%;
+    }
+    
+    .timeline__skills {
+        max-height: none;
+        opacity: 1;
+        transform: none;
+        margin-top: 0.6rem;
+    }
 }

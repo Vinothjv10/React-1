@@ -33,7 +33,7 @@ const About = () => {
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 85%',
-                    toggleActions: 'play none none none'
+                    toggleActions: 'restart reset restart reset'
                 }
             }
         );
@@ -51,7 +51,7 @@ const About = () => {
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 80%',
-                    toggleActions: 'play none none none'
+                    toggleActions: 'restart reset restart reset'
                 }
             }
         );
@@ -61,7 +61,7 @@ const About = () => {
             scrollTrigger: {
                 trigger: el.querySelector('.about__content'),
                 start: 'top 80%',
-                toggleActions: 'play none none none'
+                toggleActions: 'restart reset restart reset'
             }
         });
 
@@ -152,13 +152,13 @@ const About = () => {
 
                     <div className="about__content-text">
                         <div className='content-p'>
-                            <span className="text-highlight">Big Data Engineer</span> with hands-on experience in designing, implementing, and optimizing <span className="text-highlight">scalable data solutions</span> to solve real-world business challenges.
+                            <span className="text-highlight">Big Data & AI Engineer</span> with hands-on experience designing, implementing, and optimizing <span className="text-highlight">scalable data solutions</span> to solve complex real-world business challenges. I specialize in bridging the gap between raw data pipelines and intelligent AI systems.
                         </div>
                         <div className='content-p'>
-                            Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving, and leadership. My work spans building <span className="text-highlight">robust data pipelines</span>, enabling <span className="text-highlight">advanced analytics</span>, and collaborating with cross-functional teams to deliver high-impact results.
+                            Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving, and leadership. My work spans building <span className="text-highlight">robust data pipelines</span>, enabling <span className="text-highlight">advanced analytics</span>, and integrating <span className="text-highlight">intelligent AI & Machine Learning models</span> to deliver state-of-the-art results.
                         </div>
                         <div className='content-p'>
-                            Proficient in modern Big Data technologies, cloud platforms, and programming languages, I focus on efficient data processing, <span className="text-highlight">large-scale transformations</span>, and secure architecture practices. I’m driven by the goal of helping organizations unlock their potential through data in today’s digital world.
+                            Proficient in modern Big Data platforms, cloud architectures, and <span className="text-highlight">AI engineering practices</span>, I focus on efficient data processing, large-scale transformations, and secure infrastructure. I am driven by the goal of helping organizations unlock their potential through the synergy of <span className="text-highlight">AI and Data Engineering</span>.
                         </div>
                     </div>
 
