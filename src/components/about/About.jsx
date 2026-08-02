@@ -1,20 +1,115 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './about.css';
-import ME from '../../assets/IMG_3196-new.jpg';
+import ME from '../../assets/me_dev.png';
 import { FaAward } from 'react-icons/fa';
 import { TbCertificate } from 'react-icons/tb';
-import { VscFolderLibrary } from 'react-icons/vsc'
+import { VscFolderLibrary } from 'react-icons/vsc';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+
+        // Reset elements initially to avoid flash of content before ScrollTrigger triggers
+        gsap.set(el.querySelectorAll('h5, h2, .about__me, .about__card, .content-p, .about__content > .btn'), {
+            opacity: 0
+        });
+
+        // 1. Section Title and Subtitle Animation
+        gsap.fromTo(el.querySelectorAll('h5, h2'),
+            { opacity: 0, y: -30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.15,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'restart reset restart reset'
+                }
+            }
+        );
+
+        // 2. Profile Image frame scale & rotate reveal
+        gsap.fromTo(el.querySelector('.about__me'),
+            { opacity: 0, x: -70, scale: 0.9, rotate: -3 },
+            {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                rotate: 0,
+                duration: 1.4,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 80%',
+                    toggleActions: 'restart reset restart reset'
+                }
+            }
+        );
+
+        // 3. Right side content staggered timeline
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: el.querySelector('.about__content'),
+                start: 'top 80%',
+                toggleActions: 'restart reset restart reset'
+            }
+        });
+
+        tl.fromTo(el.querySelectorAll('.about__card'),
+            { opacity: 0, y: 50, scale: 0.9, rotateX: 12 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                rotateX: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'back.out(1.3)'
+            }
+        )
+        .fromTo(el.querySelectorAll('.content-p'),
+            { opacity: 0, y: 20, filter: 'blur(3px)' },
+            {
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out'
+            },
+            '-=0.45'
+        )
+        .fromTo(el.querySelector('.about__content > .btn'),
+            { opacity: 0, y: 15, scale: 0.95 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.6,
+                ease: 'power3.out'
+            },
+            '-=0.35'
+        );
+    }, []);
+
     return (
-        <section id='about'>
+        <section id='about' ref={sectionRef}>
             <h5>Get To Know</h5>
             <h2>About Me</h2>
             <div className="container about__container">
                 <div className="about__me">
                     <div className="about__me-image">
                         <img className='about_img' src={ME} alt="loading" />
-
                     </div>
                 </div>
 
@@ -30,18 +125,18 @@ const About = () => {
                                 </div>
                                 <div className="tag-row">
                                     <span className="tag-title">Full Time</span>
-                                    <span className="tag-value">2.5+ Years</span>
+                                    <span className="tag-value">3+ Years</span>
                                 </div>
                             </div>
                         </article>
 
                         <article className='about__card'>
                             <TbCertificate className='about__icon' />
-                            <h5>Microsoft Certificates</h5>
+                            <h5>Certificates</h5>
                             <div className="tags-container">
-                                <small>DP-100</small>
-                                <small>DP-600</small>
-                                <small>DP-700</small>
+                                <small>Microsoft DP-100</small>
+                                <small>Microsoft DP-600</small>
+                                <small>Microsoft DP-700</small>
                             </div>
                         </article>
 
@@ -50,20 +145,20 @@ const About = () => {
                             <h5>Awards</h5>
                             <div className="tags-container">
                                 <small>Budding Star : 2025</small>
-                                <small> Rookie Trophy : 2024</small>
+                                <small>Rookie Trophy : 2024</small>
                             </div>
                         </article>
-
                     </div>
-                    <div className="">
+
+                    <div className="about__content-text">
                         <div className='content-p'>
-                            Big Data Engineer with hands-on experience in designing, implementing, and optimizing scalable data solutions to solve real-world business challenges.
+                            <span className="text-highlight">Big Data & AI Engineer</span> with hands-on experience designing, implementing, and optimizing <span className="text-highlight">scalable data solutions</span> to solve complex real-world business challenges. I specialize in bridging the gap between raw data pipelines and intelligent AI systems.
                         </div>
                         <div className='content-p'>
-                            Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving skills, and leadership. My work spans building robust data pipelines, enabling advanced analytics, and collaborating with cross-functional teams to deliver impactful results.
+                            Passionate about leveraging data to drive insights and foster innovation, I bring a strong blend of technical expertise, problem-solving, and leadership. My work spans building <span className="text-highlight">robust data pipelines</span>, enabling <span className="text-highlight">advanced analytics</span>, and integrating <span className="text-highlight">intelligent AI & Machine Learning models</span> to deliver state-of-the-art results.
                         </div>
                         <div className='content-p'>
-                            Proficient in Big Data technologies, cloud platforms, and programming languages, I continue to focus on efficient data processing, large-scale transformations, and secure architecture practices. I’m driven by the goal of helping organizations unlock their potential through data in today’s digital world.
+                            Proficient in modern Big Data platforms, cloud architectures, and <span className="text-highlight">AI engineering practices</span>, I focus on efficient data processing, large-scale transformations, and secure infrastructure. I am driven by the goal of helping organizations unlock their potential through the synergy of <span className="text-highlight">AI and Data Engineering</span>.
                         </div>
                     </div>
 

@@ -1,0 +1,320 @@
+.bioSection {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #030308;
+  padding: 6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Base grid layout */
+.bioContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 5rem;
+  width: 85%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left side: Information and buttons */
+.bioLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.tagline {
+  font-size: 1.3rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #ff7b00;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.name {
+  font-size: 6.2rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+.lastName {
+  background: linear-gradient(135deg, #ffffff 20%, #ff7b00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Role carousel */
+.rolesWrapper {
+  height: 3.6rem;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.rotatingRole {
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 20px rgba(0, 168, 255, 0.15);
+  display: inline-block;
+  border-left: 3px solid #ff7b00;
+  padding-left: 0.75rem;
+  line-height: 1.2;
+}
+
+/* Button groups */
+.ctaPrimaryContainer {
+  margin-bottom: 1.5rem;
+}
+
+.btnProjects {
+  padding: 1.15rem 2.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 123, 0, 0.25);
+  background: linear-gradient(135deg, #ff7b00, #ff5100);
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px -5px rgba(255, 123, 0, 0.4), 
+              0 0 15px rgba(255, 123, 0, 0.15);
+}
+
+.btnProjects:hover {
+  background: linear-gradient(135deg, #ff9533, #ff6a22);
+  box-shadow: 0 18px 40px -5px rgba(255, 123, 0, 0.55), 
+              0 0 25px rgba(255, 123, 0, 0.35);
+  transform: translateY(-3px);
+}
+
+.btnProjects:active {
+  transform: scale(0.96) translateY(-1px);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.ctas {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.btnCv, .btnTalk {
+  padding: 0.95rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btnCv {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btnCv:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btnTalk {
+  background: rgba(255, 123, 0, 0.04);
+  border: 1px solid rgba(255, 123, 0, 0.2);
+  color: #ff8c22;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btnTalk:hover {
+  background: rgba(255, 123, 0, 0.12);
+  border-color: rgba(255, 123, 0, 0.45);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 123, 0, 0.15);
+}
+
+/* Right side: glowing avatar display */
+.bioRight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+}
+
+/* Backlit dual glow shadows */
+.avatarGlowBackdrop {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 168, 255, 0.25) 0%, rgba(255, 123, 0, 0.18) 45%, transparent 70%);
+  filter: blur(50px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Glassmorphism container border details */
+.avatarFrame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 520px;
+  height: 600px;
+  border-radius: 35px;
+  overflow: hidden;
+  background: rgba(8, 8, 16, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7), 
+              0 0 45px rgba(255, 123, 0, 0.06), 
+              inset 0 0 25px rgba(255, 255, 255, 0.04);
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.avatarFrame:hover {
+  border-color: rgba(255, 123, 0, 0.35);
+  box-shadow: 0 45px 90px rgba(0, 0, 0, 0.8), 
+              0 0 55px rgba(255, 123, 0, 0.25), 
+              inset 0 0 30px rgba(255, 255, 255, 0.08);
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.05) contrast(1.03) brightness(0.95);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.avatarFrame:hover .avatarImg {
+  transform: scale(1.04);
+}
+
+/* Pinned Socials Sidebar */
+.socialsBar {
+  position: absolute;
+  left: 3rem;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 10;
+}
+
+.socialsBar a {
+  font-size: 1.35rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.socialsBar a:hover {
+  color: #ff7b00;
+  transform: translateY(-4px) scale(1.1);
+}
+
+.verticalLine {
+  width: 1.5px;
+  height: 80px;
+  background: linear-gradient(180deg, #ff7b00, transparent);
+  opacity: 0.8;
+}
+
+/* --- Media Queries (Tablet) --- */
+@media screen and (max-width: 1024px) {
+  .socialsBar {
+    display: none;
+  }
+
+  .bioContainer {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding: 2rem 0;
+  }
+
+  .bioLeft {
+    align-items: center;
+    text-align: center;
+  }
+
+  .name {
+    font-size: 4.5rem;
+  }
+
+  .rotatingRole {
+    font-size: 1.7rem;
+    border-left: none;
+    border-bottom: 2px solid #ff7b00;
+    padding-left: 0;
+    padding-bottom: 0.25rem;
+  }
+
+  .avatarFrame {
+    width: 300px;
+    height: 380px;
+    border-radius: 28px;
+  }
+}
+
+/* --- Media Queries (Mobile) --- */
+@media screen and (max-width: 600px) {
+  .name {
+    font-size: 3.4rem;
+  }
+
+  .rotatingRole {
+    font-size: 1.4rem;
+  }
+
+  .ctas {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    gap: 1rem;
+  }
+
+  .btnCv, .btnTalk {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .avatarFrame {
+    width: 250px;
+    height: 320px;
+    border-radius: 22px;
+  }
+}

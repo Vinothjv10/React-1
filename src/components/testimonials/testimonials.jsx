@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './testimonials.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AVTR0 from '../../assets/project/bot.gif';
 import AVTR1 from '../../assets/project/honeycomb.png';
 import AVTR2 from '../../assets/project/cilogo.png';
@@ -15,6 +17,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const data = [
     {
@@ -55,8 +59,31 @@ const data = [
 ];
 
 const Testimonials = () => {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+
+        gsap.fromTo(el.querySelector('.testimonials__container'),
+            { opacity: 0, y: 50, scale: 0.95 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'restart reset restart reset'
+                }
+            }
+        );
+    }, []);
+
     return (
-        <section id='testimonials'>
+        <section id='testimonials' ref={sectionRef}>
             <h5>Description for Projects</h5>
             <h2>Testimonials</h2>
 
@@ -72,8 +99,10 @@ const Testimonials = () => {
                     data.map(({ avatar, name, review }, index) => {
                         return (
                             <SwiperSlide key={index} className='testimonial'>
-                                <div className="client__avatar">
-                                    <img src={avatar} alt={name} />
+                                <div className="client__avatar-wrapper">
+                                    <div className="client__avatar">
+                                        <img src={avatar} alt={name} />
+                                    </div>
                                 </div>
                                 <h5 className='client__name'>{name}</h5>
                                 <small className='client__review'>
