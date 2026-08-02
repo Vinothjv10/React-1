@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './portfolio.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FiArrowLeft, FiArrowRight, FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiArrowDown } from 'react-icons/fi';
 import IMG0 from '../../assets/project/bot.gif';
 import IMG1 from '../../assets/project/honeycomb.png';
 import IMG2 from '../../assets/project/cilogo.png';
@@ -21,7 +21,8 @@ const data = [
         title: 'Newsnip AI',
         github: 'https://github.com/Vinothjv10/Newsnip-AI',
         demo: 'https://newsnip.netlify.app/',
-        category: 'AI & Web'
+        category: 'AI & Web',
+        description: 'AI-powered news summarizer that aggregates global headlines and uses natural language processing to deliver concise, byte-sized summaries.'
     },
     {
         id: 1,
@@ -29,7 +30,8 @@ const data = [
         title: 'Honeycomb Site',
         github: 'https://github.com/Vinothjv10/honeycomb-site',
         demo: 'https://www.honeycombtech.org/',
-        category: 'Non-Profit'
+        category: 'Non-Profit',
+        description: 'Official web platform for Honeycomb Tech, a non-profit organization, featuring resource directories, member portals, and donation integration.'
     },
     {
         id: 2,
@@ -37,7 +39,8 @@ const data = [
         title: 'Technoblaze',
         github: 'https://github.com/Vinothjv10/technoblaze',
         demo: 'https://technoblaze.netlify.app/',
-        category: 'E-Commerce'
+        category: 'E-Commerce',
+        description: 'A high-performance e-commerce platform with search filters, real-time cart updates, and a responsive product grid.'
     },
     {
         id: 3,
@@ -45,7 +48,8 @@ const data = [
         title: 'Spot Plant',
         github: 'https://github.com/Plants-Site/Spot-plant',
         demo: 'https://plant-6cd6e.web.app/',
-        category: 'AgriTech'
+        category: 'AgriTech',
+        description: 'AgriTech application designed to identify plant diseases from photos, providing tailored organic remedies and growth tracking.'
     },
     {
         id: 4,
@@ -53,7 +57,8 @@ const data = [
         title: 'Bisnes Company',
         github: 'https://github.com/Vinothjv10/front_end_page',
         demo: 'https://company-jv.web.app/',
-        category: 'Business Web'
+        category: 'Business Web',
+        description: 'Corporate presentation site showcasing agency services, client portfolios, interactive contact channels, and team profiles.'
     },
     {
         id: 5,
@@ -61,7 +66,8 @@ const data = [
         title: 'Honeycomb Site-2',
         github: 'https://github.com/Vinothjv10/WT-A1',
         demo: 'https://companysite-1d719.web.app/',
-        category: 'Corporate'
+        category: 'Corporate',
+        description: 'Redesigned digital home for Honeycomb, optimized for speed, accessibility, and dynamic modern animation layout.'
     },
     {
         id: 6,
@@ -69,7 +75,8 @@ const data = [
         title: 'Shiksha',
         github: 'https://github.com/Vinothjv10/Shiksha',
         demo: 'https://shiksha-jv.netlify.app/',
-        category: 'EdTech'
+        category: 'EdTech',
+        description: 'Online education platform featuring class modules, interactive quizzes, teacher-student communication dashboards, and progress reporting.'
     },
     {
         id: 7,
@@ -77,33 +84,21 @@ const data = [
         title: 'Goshala',
         github: 'https://github.com/Vinothjv10/Goshala',
         demo: ' ',
-        category: 'Charity'
+        category: 'Charity',
+        description: 'Community charity portal managing cattle welfare donations, volunteer registrations, and shelter gallery updates.'
     },
 ]
 
 const Portfolio = () => {
     const sectionRef = useRef(null);
     const sliderRef = useRef(null);
-    const [pageSize, setPageSize] = useState(3);
     const [activeCardIndex, setActiveCardIndex] = useState(0);
-    const [scrollProgress, setScrollProgress] = useState(0);
 
-    // Update page size dynamically based on screen width
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth <= 600) {
-                setPageSize(1);
-            } else if (window.innerWidth <= 1024) {
-                setPageSize(2);
-            } else {
-                setPageSize(3);
-            }
-        };
-
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    // Mouse drag gesture references
+    const isDown = useRef(false);
+    const startX = useRef(0);
+    const scrollLeftVal = useRef(0);
+    const dragMoved = useRef(false);
 
     // GSAP Entrance Animations
     useEffect(() => {
@@ -128,25 +123,86 @@ const Portfolio = () => {
         );
     }, []);
 
-    // Generate dynamic page indices depending on active page size
-    const pageIndices = [];
-    for (let i = 0; i < data.length; i += pageSize) {
-        pageIndices.push(i);
-    }
+    // passive Wheel scroll translation (vertical scroll wheel to horizontal slide scroll with boundary escape - inverted direction)
+    useEffect(() => {
+        const slider = sliderRef.current;
+        if (!slider) return;
 
-    // Determine current active page index based on card index closest to the current view
-    const activePageIndex = pageIndices.reduce((prev, curr, idx) => {
-        return Math.abs(curr - activeCardIndex) < Math.abs(pageIndices[prev] - activeCardIndex) ? idx : prev;
-    }, 0);
+        const handleWheel = (e) => {
+            const { scrollWidth, clientWidth } = slider;
+            const maxScroll = scrollWidth - clientWidth;
+            const currentScrollLeft = slider.scrollLeft;
 
-    // Track scroll location to update progress variables
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                // Vertical wheel inputs: Map scroll top to horizontal right, scroll bottom to horizontal left
+                if (e.deltaY < 0) {
+                    // Wheel up / "scroll top": scroll horizontal right
+                    if (currentScrollLeft < maxScroll - 5) {
+                        e.preventDefault();
+                        slider.scrollLeft = Math.min(currentScrollLeft - e.deltaY, maxScroll);
+                    }
+                } else {
+                    // Wheel down / "scroll bottom": scroll horizontal left
+                    if (currentScrollLeft > 5) {
+                        e.preventDefault();
+                        slider.scrollLeft = Math.max(currentScrollLeft - e.deltaY, 0);
+                    }
+                }
+            }
+            // Do NOT block or translate horizontal deltaX scrolls: letting the browser scroll trackpad swipes natively
+        };
+
+        slider.addEventListener('wheel', handleWheel, { passive: false });
+        return () => {
+            slider.removeEventListener('wheel', handleWheel);
+        };
+    }, []);
+
+    // Mouse Drag to Scroll handlers
+    const handleMouseDown = (e) => {
+        isDown.current = true;
+        dragMoved.current = false;
+        sliderRef.current.classList.add('grabbing');
+        startX.current = e.pageX - sliderRef.current.offsetLeft;
+        scrollLeftVal.current = sliderRef.current.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+        isDown.current = false;
+        if (sliderRef.current) {
+            sliderRef.current.classList.remove('grabbing');
+        }
+    };
+
+    const handleMouseUp = () => {
+        isDown.current = false;
+        if (sliderRef.current) {
+            sliderRef.current.classList.remove('grabbing');
+        }
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDown.current) return;
+        const x = e.pageX - sliderRef.current.offsetLeft;
+        const walk = (x - startX.current) * 1.5;
+        if (Math.abs(walk) > 5) {
+            dragMoved.current = true;
+        }
+        e.preventDefault();
+        sliderRef.current.scrollLeft = scrollLeftVal.current - walk;
+    };
+
+    const handleClickCapture = (e) => {
+        if (dragMoved.current) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+
+    // Calculate active index on scroll
     const handleScroll = () => {
         if (!sliderRef.current) return;
-        const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-
-        const maxScroll = scrollWidth - clientWidth;
-        const progress = maxScroll > 0 ? Math.min(Math.max(scrollLeft / maxScroll, 0), 1) : 0;
-        setScrollProgress(progress);
+        const { scrollLeft } = sliderRef.current;
 
         const items = sliderRef.current.querySelectorAll('.portfolio__item');
         if (items.length > 0) {
@@ -155,64 +211,8 @@ const Portfolio = () => {
             const gapValue = parseFloat(style.columnGap || style.gap) || 0;
             const cardSize = itemWidth + gapValue;
 
-            const activeCard = Math.round(scrollLeft / cardSize);
-            setActiveCardIndex(activeCard);
-        }
-    };
-
-    // Helper functions for smooth horizontal scroll snapping
-    const scrollNext = () => {
-        if (!sliderRef.current) return;
-        const items = sliderRef.current.querySelectorAll('.portfolio__item');
-        if (items.length > 0) {
-            const itemWidth = items[0].getBoundingClientRect().width;
-            const style = window.getComputedStyle(sliderRef.current);
-            const gapValue = parseFloat(style.columnGap || style.gap) || 0;
-            const cardSize = itemWidth + gapValue;
-
-            const nextPageStart = pageIndices.find(idx => idx > activeCardIndex);
-            if (nextPageStart !== undefined) {
-                sliderRef.current.scrollTo({
-                    left: nextPageStart * cardSize,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    };
-
-    const scrollPrev = () => {
-        if (!sliderRef.current) return;
-        const items = sliderRef.current.querySelectorAll('.portfolio__item');
-        if (items.length > 0) {
-            const itemWidth = items[0].getBoundingClientRect().width;
-            const style = window.getComputedStyle(sliderRef.current);
-            const gapValue = parseFloat(style.columnGap || style.gap) || 0;
-            const cardSize = itemWidth + gapValue;
-
-            const prevPageStart = [...pageIndices].reverse().find(idx => idx < activeCardIndex);
-            if (prevPageStart !== undefined) {
-                sliderRef.current.scrollTo({
-                    left: prevPageStart * cardSize,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    };
-
-    const scrollToPage = (pageIdx) => {
-        if (!sliderRef.current) return;
-        const items = sliderRef.current.querySelectorAll('.portfolio__item');
-        if (items.length > 0) {
-            const itemWidth = items[0].getBoundingClientRect().width;
-            const style = window.getComputedStyle(sliderRef.current);
-            const gapValue = parseFloat(style.columnGap || style.gap) || 0;
-            const cardSize = itemWidth + gapValue;
-
-            const targetIndex = pageIndices[pageIdx];
-            sliderRef.current.scrollTo({
-                left: targetIndex * cardSize,
-                behavior: 'smooth'
-            });
+            const activeIndex = Math.round(scrollLeft / cardSize);
+            setActiveCardIndex(activeIndex);
         }
     };
 
@@ -225,13 +225,22 @@ const Portfolio = () => {
                 className="portfolio__container" 
                 ref={sliderRef}
                 onScroll={handleScroll}
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+                onClickCapture={handleClickCapture}
             >
                 {
-                    data.map(({ id, image, title, github, demo, category }) => {
+                    data.map(({ id, image, title, github, demo, category, description }) => {
+                        const isActive = id === activeCardIndex;
                         return (
-                            <article key={id} className='portfolio__item'>
+                            <article key={id} className={`portfolio__item ${isActive ? 'active' : ''}`}>
                                 <div className="portfolio__item-image">
                                     <img src={image} alt={title} />
+                                    <div className="portfolio__item-hover-content">
+                                        <p>{description}</p>
+                                    </div>
                                 </div>
 
                                 <span className="portfolio__item-tag">{category}</span>
@@ -254,69 +263,27 @@ const Portfolio = () => {
                         )
                     })
                 }
-            </div>
 
-            <div className="portfolio__controls-wrapper">
-                <div className="portfolio__controls">
-                    <button 
-                        className="portfolio__nav-btn" 
-                        onClick={scrollPrev} 
-                        disabled={scrollProgress <= 0.01}
-                        aria-label="Previous project page"
-                    >
-                        <svg className="progress-ring" width="56" height="56">
-                            <circle className="progress-ring__circle-bg" cx="28" cy="28" r="24" />
-                            <circle 
-                                className="progress-ring__circle" 
-                                cx="28" 
-                                cy="28" 
-                                r="24" 
-                                strokeDasharray="151"
-                                strokeDashoffset={151 - (151 * (1 - scrollProgress))} 
-                            />
-                        </svg>
-                        <FiArrowLeft className="nav-icon" />
-                    </button>
-
-                    <div className="portfolio__dots">
-                        {pageIndices.map((pageStart, index) => (
-                            <button
-                                key={index}
-                                className={`portfolio__dot ${index === activePageIndex ? 'active' : ''}`}
-                                onClick={() => scrollToPage(index)}
-                                aria-label={`Go to page ${index + 1}`}
-                            />
-                        ))}
+                {/* Final GitHub CTA and Scroll Indicator Card */}
+                <article className={`portfolio__item portfolio__item-more ${activeCardIndex === data.length ? 'active' : ''}`}>
+                    <div className="portfolio__more-content">
+                        <FiGithub className="portfolio__more-icon" />
+                        <h3>Want to see more?</h3>
+                        <p>If you want to know more about my projects, you can visit my GitHub profile.</p>
+                        <a 
+                            href="https://github.com/Vinothjv10" 
+                            className="btn btn-primary portfolio__more-btn" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            <FiGithub /> Visit Profile
+                        </a>
+                        <div className="portfolio__scroll-indicator">
+                            <span>Scroll for next section</span>
+                            <FiArrowDown className="scroll-indicator__arrow" />
+                        </div>
                     </div>
-
-                    <button 
-                        className="portfolio__nav-btn" 
-                        onClick={scrollNext} 
-                        disabled={scrollProgress >= 0.99}
-                        aria-label="Next project page"
-                    >
-                        <svg className="progress-ring" width="56" height="56">
-                            <circle className="progress-ring__circle-bg" cx="28" cy="28" r="24" />
-                            <circle 
-                                className="progress-ring__circle" 
-                                cx="28" 
-                                cy="28" 
-                                r="24" 
-                                strokeDasharray="151"
-                                strokeDashoffset={151 - (151 * scrollProgress)} 
-                            />
-                        </svg>
-                        <FiArrowRight className="nav-icon" />
-                    </button>
-                </div>
-
-                <div className="portfolio__progress-container">
-                    <div className="portfolio__progress-bar" style={{ width: `${scrollProgress * 100}%` }} />
-                </div>
-
-                <div className="portfolio__progress-info">
-                    {String(activePageIndex + 1).padStart(2, '0')} / {String(pageIndices.length).padStart(2, '0')}
-                </div>
+                </article>
             </div>
         </section>
     )
