@@ -56,6 +56,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer__glow-ambient"></div>
+            <div className="footer__glow-ambient-secondary"></div>
             <div className="footer__grid-pattern"></div>
             
             <div className="container footer__container">
