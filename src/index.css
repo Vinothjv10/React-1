@@ -32,6 +32,8 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
 }
 
 ::-webkit-scrollbar {
@@ -68,7 +70,14 @@ h1 {
 
 section {
     margin-top: 8rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     /* height: 100vh; */
+}
+
+footer {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 section>h2,

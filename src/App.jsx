@@ -1,5 +1,6 @@
 import React from 'react'
 import VideoIntro from './components/videoIntro/VideoIntro'
+import Bio from './components/bio/Bio'
 import Nav from './components/nav/Nav'
 import About from './components/about/About'
 import Experience from './components/experience/Experience'
@@ -14,6 +15,7 @@ const App = () => {
     return (
         <>
             <VideoIntro />
+            <Bio />
             <Nav />
             <About />
             <Timeline />    

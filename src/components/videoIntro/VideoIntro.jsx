@@ -6,7 +6,6 @@ import styles from './VideoIntro.module.css';
 
 // Import local assets
 import aboutMeVideo from '../../assets/about_me.mp4';
-import CV from '../../assets/Vinoth_DataEngineering_Resume.pdf';
 
 const VideoIntro = () => {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -19,8 +18,6 @@ const VideoIntro = () => {
   // GSAP animation refs
   const taglineRef = useRef(null);
   const nameRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const ctasRef = useRef(null);
   const scrollRef = useRef(null);
   const controlsRef = useRef(null);
 
@@ -59,7 +56,7 @@ const VideoIntro = () => {
         duration: 1.8,
         ease: 'power2.inOut'
       }, 6.0)
-      // 3. Stagger-in the typography overlay content after the focus/brightness shift
+      // 3. Stagger-in the tagline and title overlay content
       .fromTo(taglineRef.current, 
         { opacity: 0, y: 30 }, 
         { opacity: 1, y: 0 }, 
@@ -76,20 +73,10 @@ const VideoIntro = () => {
         { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.9, stagger: 0.06, ease: 'back.out(1.5)' }, 
         6.4
       )
-      .fromTo(subtitleRef.current, 
-        { opacity: 0, y: 35 }, 
-        { opacity: 1, y: 0 }, 
-        7.0
-      )
-      .fromTo(ctasRef.current, 
-        { opacity: 0, y: 35 }, 
-        { opacity: 1, y: 0 }, 
-        7.2
-      )
       .fromTo(scrollRef.current, 
         { opacity: 0, y: 25 }, 
         { opacity: 1, y: 0, duration: 0.8 }, 
-        7.5
+        7.0
       );
     });
 
@@ -131,9 +118,17 @@ const VideoIntro = () => {
     }
   };
 
+  // Auto scroll down when the main video finishes playing
+  const handleVideoEnded = () => {
+    const nextSection = document.getElementById('bio');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Smooth scroll helper
   const handleScrollDown = () => {
-    const nextSection = document.getElementById('about');
+    const nextSection = document.getElementById('bio');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -141,7 +136,7 @@ const VideoIntro = () => {
 
   return (
     <section className={styles.videoIntro} id="home">
-      {/* 1. Background Ambient Blurred Video */}
+      {/* 1. Background Ambient Blurred Video (Always loops for background lighting) */}
       <video
         ref={bgVideoRef}
         className={styles.bgAmbient}
@@ -152,15 +147,15 @@ const VideoIntro = () => {
         playsInline
       />
 
-      {/* 2. Foreground Main Full-screen Video */}
+      {/* 2. Foreground Main Full-screen Video (Plays once, triggers auto-scroll on end) */}
       <video
         ref={videoRef}
         className={styles.foregroundVideo}
         src={aboutMeVideo}
         autoPlay
-        loop
         muted
         playsInline
+        onEnded={handleVideoEnded}
       />
 
       {/* Cinematic Gradient & Vignette Overlays */}
@@ -184,18 +179,6 @@ const VideoIntro = () => {
               {splitText("J")}
             </span>
           </h1>
-          <p ref={subtitleRef} className={styles.subtitle}>
-            Big Data Engineer with 4+ years of experience designing, building, and optimizing scalable cloud pipelines and high-impact analytics architectures.
-          </p>
-
-          <div ref={ctasRef} className={styles.ctas}>
-            <a href={CV} download className={styles.btnCv}>
-              Download CV
-            </a>
-            <a href="#contact" className={styles.btnTalk}>
-              Let's Talk
-            </a>
-          </div>
         </div>
       </div>
 
