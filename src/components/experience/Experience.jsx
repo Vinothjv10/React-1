@@ -5,12 +5,13 @@ import {
     SiClickhouse, SiDbt, SiPython, SiDocker, 
     SiApacheairflow, SiKubernetes, SiApachekafka, SiGnubash, SiHtml5, SiCss3, 
     SiJavascript, SiBootstrap, SiTailwindcss, SiAngular, SiNextdotjs, SiReact, 
-    SiNodedotjs, SiFlask, SiFirebase, SiPhp, SiTypescript, SiFastapi, SiApachespark
+    SiNodedotjs, SiFlask, SiFirebase, SiPhp, SiTypescript, SiFastapi, SiApachespark,
+    SiOpenai, SiPytorch, SiScikitlearn
 } from 'react-icons/si';
 import { DiDatabase } from 'react-icons/di';
 import { VscAzure } from 'react-icons/vsc';
 import { GoGraph, GoGear } from 'react-icons/go';
-import { FiSearch, FiCode, FiX, FiLayers, FiActivity } from 'react-icons/fi';
+import { FiSearch, FiCode, FiX, FiLayers, FiCpu, FiShare2 } from 'react-icons/fi';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -21,6 +22,7 @@ const categories = [
     { id: 'cloud', name: 'Cloud & Infrastructure', icon: <VscAzure size={18} /> },
     { id: 'databases', name: 'Databases & Warehousing', icon: <DiDatabase size={18} /> },
     { id: 'dataeng', name: 'Data Engineering', icon: <GoGear size={18} /> },
+    { id: 'ai', name: 'AI & Machine Learning', icon: <SiOpenai size={18} /> },
     { id: 'frontend', name: 'Frontend Development', icon: <SiReact size={18} /> },
     { id: 'backend', name: 'Backend Development', icon: <SiNodedotjs size={18} /> }
 ];
@@ -35,8 +37,8 @@ const SKILLS_DATA = [
         icon: 'azure',
         color: '#0078d4',
         desc: 'Utilized for cloud data solutions, hosting services, identity management, and serverless compute functions. Deployed multiple pipelines and resources in commercial projects.',
-        projects: 'Saturam, Portfolio Projects',
-        code: `// Azure resource configuration snippet\n{\n  "type": "Microsoft.DataFactory/factories",\n  "apiVersion": "2018-06-01",\n  "name": "SaturamDataFactory",\n  "location": "eastus"\n}`
+        projects: 'Vinoth, Portfolio Projects',
+        code: `// Azure resource configuration snippet\n{\n  "type": "Microsoft.DataFactory/factories",\n  "apiVersion": "2018-06-01",\n  "name": "VinothDataFactory",\n  "location": "eastus"\n}`
     },
     {
         id: 'gcp',
@@ -58,7 +60,7 @@ const SKILLS_DATA = [
         icon: 'mysql',
         color: '#00758f',
         desc: 'Relational database schema designing, optimization of complex JOIN queries, indexing strategy implementation, and query profiling.',
-        projects: 'Honeycomb Technologies, Saturam, E-Commerce Projects',
+        projects: 'Honeycomb Technologies, Vinoth, E-Commerce Projects',
         code: `SELECT u.username, COUNT(o.id) as total_orders\nFROM users u\nINNER JOIN orders o ON u.id = o.user_id\nWHERE o.created_at >= '2025-01-01'\nGROUP BY u.id\nHAVING total_orders > 5\nORDER BY total_orders DESC;`
     },
     {
@@ -69,7 +71,7 @@ const SKILLS_DATA = [
         icon: 'postgresql',
         color: '#336791',
         desc: 'Advanced relational database usage including window functions, triggers, JSONB data query optimization, and materialized view caching.',
-        projects: 'Saturam, Analytics Platform',
+        projects: 'Vinoth, Analytics Platform',
         code: `SELECT \n  date_trunc('month', sale_date) AS month,\n  product_name,\n  revenue,\n  RANK() OVER (PARTITION BY date_trunc('month', sale_date) ORDER BY revenue DESC) as sales_rank\nFROM sales_data;`
     },
     {
@@ -102,7 +104,7 @@ const SKILLS_DATA = [
         icon: 'bigquery',
         color: '#66a3ff',
         desc: 'Handling petabyte-scale data analytics, query optimization for cost reduction, partitioned tables setup, and dashboard backend streaming queries.',
-        projects: 'Saturam, Analytics Warehousing',
+        projects: 'Vinoth, Analytics Warehousing',
         code: `CREATE OR REPLACE TABLE \`analytics.daily_summaries\`\nPARTITION BY date\nCLUSTER BY customer_id AS\nSELECT \n  DATE(timestamp) as date,\n  customer_id,\n  COUNT(1) as total_hits\nFROM \`raw_events.clicks\`\nGROUP BY 1, 2;`
     },
     {
@@ -125,7 +127,7 @@ const SKILLS_DATA = [
         icon: 'dbt',
         color: '#ff6b6b',
         desc: 'Data transformations in the warehouse using SQL. Modular model creation, documentation compilation, and schema testing in CI/CD pipeline.',
-        projects: 'Saturam, Analytics Platform',
+        projects: 'Vinoth, Analytics Platform',
         code: `-- stg_orders.sql\nwith source as (\n    select * from {{ source('raw_store', 'orders') }}\n),\n\nrenamed as (\n    select\n        id as order_id,\n        customer_id,\n        order_date,\n        status\n    from source\n)\n\nselect * from renamed`
     },
     {
@@ -136,7 +138,7 @@ const SKILLS_DATA = [
         icon: 'python',
         color: '#3776ab',
         desc: 'Primary language for developing ETL scripts, orchestrating data pipelines, model building, scripting tasks, and backend API integration.',
-        projects: 'Saturam, Honeycomb Technologies, Personal Tools',
+        projects: 'Vinoth, Honeycomb Technologies, Personal Tools',
         code: `import pandas as pd\nimport glob\n\ndef consolidate_csv_files(path_pattern):\n    files = glob.glob(path_pattern)\n    df_list = [pd.read_csv(f) for f in files]\n    combined_df = pd.concat(df_list, ignore_index=True)\n    return combined_df.clean_columns().drop_duplicates()`
     },
     {
@@ -147,8 +149,8 @@ const SKILLS_DATA = [
         icon: 'fabric',
         color: '#0078d4',
         desc: 'Next-generation all-in-one analytics platform. Building lakehouses, pipelines, dataflows, and implementing Spark notebooks for dynamic calculations.',
-        projects: 'Saturam',
-        code: `%%pyspark\n# Microsoft Fabric Notebook Execution\ndf = spark.read.table("SaturamLakehouse.RawSales")\ndisplay(df.groupBy("Category").count())`
+        projects: 'Vinoth',
+        code: `%%pyspark\n# Microsoft Fabric Notebook Execution\ndf = spark.read.table("VinothLakehouse.RawSales")\ndisplay(df.groupBy("Category").count())`
     },
     {
         id: 'pyspark',
@@ -158,7 +160,7 @@ const SKILLS_DATA = [
         icon: 'pyspark',
         color: '#e25a1c',
         desc: 'Distributed big data compute jobs. Cleaning large datasets, schema mapping, optimizing shuffles, and writing to Parquet/Delta file formats.',
-        projects: 'Saturam, Data Analytics Job',
+        projects: 'Vinoth, Data Analytics Job',
         code: `from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, when\n\nspark = SparkSession.builder.appName("DataCleaning").getOrCreate()\ndf = spark.read.load("abfss://lakehouse@onelake.dfs.fabric.microsoft.com/Files/sales.parquet")\nclean_df = df.filter(col("amount") > 0).withColumn("status", when(col("qty") > 10, "Bulk").otherwise("Normal"))`
     },
     {
@@ -169,7 +171,7 @@ const SKILLS_DATA = [
         icon: 'adf',
         color: '#0078d4',
         desc: 'Azure Data Factory for workflow scheduling, building Copy Data tasks, executing notebooks, web activity calls, and dynamic folder mappings.',
-        projects: 'Saturam',
+        projects: 'Vinoth',
         code: `// ADF Activity execution configuration snippet\n{\n  "name": "CopyRawToStaging",\n  "type": "Copy",\n  "inputs": [ { "referenceName": "BlobCsvDataset", "type": "DatasetReference" } ],\n  "outputs": [ { "referenceName": "SynapseTableDataset", "type": "DatasetReference" } ]\n}`
     },
     {
@@ -180,8 +182,8 @@ const SKILLS_DATA = [
         icon: 'synapse',
         color: '#0078d4',
         desc: 'Azure Synapse Analytics workspaces. Combining serverless SQL pools for querying Parquet files directly from ADLS Gen2, and dedicated data warehouse pooling.',
-        projects: 'Saturam',
-        code: `-- Synapse serverless SQL pool querying\nSELECT TOP 100 *\nFROM OPENROWSET(\n    BULK 'https://saturamdatalake.dfs.core.windows.net/raw/sales/year=*/month=*/*.parquet',\n    FORMAT = 'PARQUET'\n) AS [result];`
+        projects: 'Vinoth',
+        code: `-- Synapse serverless SQL pool querying\nSELECT TOP 100 *\nFROM OPENROWSET(\n    BULK 'https://vinothdatalake.dfs.core.windows.net/raw/sales/year=*/month=*/*.parquet',\n    FORMAT = 'PARQUET'\n) AS [result];`
     },
     {
         id: 'docker',
@@ -191,7 +193,7 @@ const SKILLS_DATA = [
         icon: 'docker',
         color: '#2496ed',
         desc: 'Containerizing developer environments, building multi-stage builds for APIs, orchestrating microservices with docker-compose.',
-        projects: 'Saturam, Personal Deployments',
+        projects: 'Vinoth, Personal Deployments',
         code: `FROM python:3.9-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nEXPOSE 8000\nCMD ["uvicorn", "main:app", "--host", "0.0.0.0"]`
     },
     {
@@ -202,7 +204,7 @@ const SKILLS_DATA = [
         icon: 'airflow',
         color: '#017cee',
         desc: 'Apache Airflow for DAG structures. Managing schedule intervals, execution dependencies, dynamic task generations, and email notification webhooks.',
-        projects: 'Saturam, Local Scheduler',
+        projects: 'Vinoth, Local Scheduler',
         code: `from airflow import DAG\nfrom airflow.operators.python import PythonOperator\nfrom datetime import datetime\n\ndef run_pipeline():\n    print("Extracting datasets...")\n\nwith DAG('daily_etl_sync', start_date=datetime(2025, 1, 1), schedule_interval='@daily', catchup=False) as dag:\n    task = PythonOperator(task_id='trigger_etl', python_callable=run_pipeline)`
     },
     {
@@ -224,7 +226,7 @@ const SKILLS_DATA = [
         icon: 'deltalake',
         color: '#00a2ff',
         desc: 'Providing ACID transaction capabilities over object stores. Writing parquet data tables, vacuuming old logs, and utilizing time-travel version queries.',
-        projects: 'Saturam',
+        projects: 'Vinoth',
         code: `# Writing streaming data into Delta lake format\ndf.write.format("delta") \\\n  .mode("overwrite") \\\n  .option("overwriteSchema", "true") \\\n  .save("/mnt/delta/sales_records")`
     },
     {
@@ -248,6 +250,106 @@ const SKILLS_DATA = [
         desc: 'System maintenance scripting. Scheduling cron backups, log rotations, environment checks, and writing Docker container entrypoint scripts.',
         projects: 'All Linux Systems',
         code: `#!/bin/bash\n# Check if PostgreSQL container is running\nif [ "$(docker inspect -f '{{.State.Running}}' db_postgres 2>/dev/null)" = "true" ]; then\n    echo "DB is online. Starting backup..."\n    docker exec -t db_postgres pg_dumpall -c -U admin > backup.sql\nfi`
+    },
+    // AI & Machine Learning
+    {
+        id: 'llms',
+        name: 'LLMs & Prompt Engineering',
+        category: 'ai',
+        level: 'Experienced',
+        icon: 'llms',
+        color: '#10a37f',
+        desc: 'Integration and prompting of Large Language Models including OpenAI GPT-4, Anthropic Claude, and Gemini API for complex downstream text tasks.',
+        projects: 'Vinoth, Cognitive Automation Tools',
+        code: `import openai\n\nclient = openai.OpenAI()\nresponse = client.chat.completions.create(\n    model="gpt-4-turbo",\n    messages=[{"role": "user", "content": "Analyze pipeline failures."}]\n)\nprint(response.choices[0].message.content)`
+    },
+    {
+        id: 'rag',
+        name: 'RAG & Semantic Search',
+        category: 'ai',
+        level: 'Experienced',
+        icon: 'rag',
+        color: '#00a88f',
+        desc: 'Retrieval-Augmented Generation pipelines. Implementing document loaders, chunking strategies (recursive, semantic), embedding models, vector database indexing, and query expansion.',
+        projects: 'Vinoth, Document Q&A Platform',
+        code: `from langchain_community.embeddings import OpenAIEmbeddings\nfrom langchain_community.vectorstores import Chroma\n\nvectorstore = Chroma.from_documents(documents, embeddings)\nretriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4})`
+    },
+    {
+        id: 'langchain',
+        name: 'LangChain & LlamaIndex',
+        category: 'ai',
+        level: 'Experienced',
+        icon: 'langchain',
+        color: '#ffaa00',
+        desc: 'Building Retrieval-Augmented Generation (RAG) applications, dynamic memory management, semantic search indexes, and multi-agent systems.',
+        projects: 'Vinoth, RAG Search Engines',
+        code: `from langchain.chains import create_retrieval_chain\nfrom langchain.chains.combine_documents import create_stuff_documents_chain\n\nretrieval_chain = create_retrieval_chain(retriever, combine_docs_chain)\nresponse = retrieval_chain.invoke({"input": "Search data pipeline docs"})`
+    },
+    {
+        id: 'graphrag',
+        name: 'GraphRAG & Knowledge Graphs',
+        category: 'ai',
+        level: 'Experienced',
+        icon: 'graphrag',
+        color: '#5bc0be',
+        desc: 'Structured retrieval using GraphRAG methodologies. Extracting entities, relationships, and hierarchical communities from unstructured data, combining graph traversals with vector search for global and local summarization.',
+        projects: 'Vinoth, Semantic Analytics engine',
+        code: `from langchain_community.graphs import Neo4jGraph\n\ngraph = Neo4jGraph(url="bolt://localhost:7687", username="neo4j", password="pwd")\n# Run graph reasoning query\nresult = graph.query("MATCH (p:Pipeline)-[:DEPENDS_ON]->(d) RETURN p.name, d.name")`
+    },
+    {
+        id: 'neo4j',
+        name: 'Neo4j',
+        category: 'ai',
+        level: 'Experienced',
+        icon: 'neo4j',
+        color: '#008cc1',
+        desc: 'Graph database design and modeling. Writing Cypher queries, optimizing graph indices, traversing dense relationships, and running graph algorithm libraries (GDS) for network analytics.',
+        projects: 'Vinoth, Corporate Dependency Graphs',
+        code: `MATCH (user:User {id: $userId})-[:MEMBER_OF]->(group:Group)\nMATCH (group)-[:HAS_ACCESS_TO]->(res:Resource)\nRETURN res.name, count(*) AS paths\nORDER BY paths DESC;`
+    },
+    {
+        id: 'transformers',
+        name: 'Hugging Face & PyTorch',
+        category: 'ai',
+        level: 'Intermediate',
+        icon: 'transformers',
+        color: '#ff6200',
+        desc: 'Fine-tuning open-source transformers, model checkpoints loading, utilizing PyTorch tensors, and deploying custom inference endpoints.',
+        projects: 'Vinoth, Sentiment Analytics Tool',
+        code: `import torch\nfrom transformers import pipeline\n\nclassifier = pipeline("sentiment-analysis", model="distilbert-base-uncased")\nprint(classifier("Pipeline completed successfully in 2 minutes!"))`
+    },
+    {
+        id: 'vectordb',
+        name: 'Vector Databases',
+        category: 'ai',
+        level: 'Intermediate',
+        icon: 'vectordb',
+        color: '#00a88f',
+        desc: 'Setting up Pinecone and ChromaDB collections, calculating cosine similarity search indexes, and orchestrating vector updates in ETL loops.',
+        projects: 'Vinoth, Knowledge Base Search',
+        code: `import pinecone\n\nnpc = pinecone.Pinecone(api_key="your_key")\nindex = pc.Index("vinoth-ai-index")\nquery_results = index.query(\n    vector=[0.1, 0.2, -0.3, 0.4],\n    top_k=3,\n    include_metadata=True\n)`
+    },
+    {
+        id: 'scikitlearn',
+        name: 'Machine Learning',
+        category: 'ai',
+        level: 'Experienced',
+        icon: 'scikitlearn',
+        color: '#f89939',
+        desc: 'Supervised and unsupervised learning, implementing Random Forests, XGBoost, feature engineering, statistical metrics, and model serving.',
+        projects: 'Vinoth, Forecasting Pipelines',
+        code: `from sklearn.ensemble import RandomForestRegressor\nfrom sklearn.model_selection import train_test_split\n\nmodel = RandomForestRegressor(n_estimators=100, random_state=42)\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)`
+    },
+    {
+        id: 'agents',
+        name: 'AI Agent Orchestration',
+        category: 'ai',
+        level: 'Intermediate',
+        icon: 'agents',
+        color: '#ff4500',
+        desc: 'Structuring autonomous task executors, tool calling loops, collaborative agent crews (CrewAI), and self-correcting code interpreters.',
+        projects: 'Vinoth, Automated Code Reviewer',
+        code: `from crewai import Agent, Task, Crew\n\ncode_reviewer = Agent(\n  role='Senior Reviewer',\n  goal='Review PySpark schema definitions',\n  backstory='Expert in big data optimization',\n  verbose=True\n)`
     },
     // Frontend Development
     {
@@ -407,6 +509,15 @@ const getIcon = (iconName, size = 24) => {
         case 'deltalake': return <DiDatabase size={size} />;
         case 'kafka': return <SiApachekafka size={size} />;
         case 'bash': return <SiGnubash size={size} />;
+        case 'llms': return <SiOpenai size={size} />;
+        case 'rag': return <FiSearch size={size} />;
+        case 'langchain': return <FiLayers size={size} />;
+        case 'graphrag': return <FiShare2 size={size} />;
+        case 'neo4j': return <FiShare2 size={size} />;
+        case 'transformers': return <SiPytorch size={size} />;
+        case 'vectordb': return <DiDatabase size={size} />;
+        case 'scikitlearn': return <SiScikitlearn size={size} />;
+        case 'agents': return <FiCpu size={size} />;
         case 'htmlcss': return (
             <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                 <SiHtml5 size={size} />
@@ -450,7 +561,7 @@ const Experience = () => {
         if (activeTab !== 'overview') return;
         const logTemplates = [
             'Executing spark-submit script: clean_records.py',
-            'ADF pipeline "SaturamETL" status: IN_PROGRESS',
+            'ADF pipeline "VinothETL" status: IN_PROGRESS',
             'DBT compilation complete: 18 tables verified',
             'Pushed updated artifacts to Google Container Registry',
             'ClickHouse: query completed in 0.004s (2.4M rows scanned)',
@@ -458,7 +569,7 @@ const Experience = () => {
             'React production bundle build successful - dev bundle: 2.1MB',
             'FastAPI connection pool established: 12 active handlers',
             'Kafka partition 3: Rebalancing completed successfully',
-            'ADF pipeline "SaturamETL" status: SUCCESS (duration: 3m 12s)'
+            'ADF pipeline "VinothETL" status: SUCCESS (duration: 3m 12s)'
         ];
 
         const interval = setInterval(() => {
@@ -532,7 +643,7 @@ const Experience = () => {
                             <span>skills_workspace.json</span>
                         </div>
                         <div className="window-path">
-                            <span className="path-host">admin@saturam</span>
+                            <span className="path-host">admin@vinoth</span>
                             <span className="path-separator">:</span>
                             <span className="path-dir">~/workspace/experience</span>
                         </div>
@@ -594,24 +705,24 @@ const Experience = () => {
                                     {/* Stats Cards */}
                                     <div className="dashboard__stats-grid">
                                         <div className="stat-card">
-                                            <div className="stat-icon-wrapper orange"><FiActivity /></div>
+                                            <div className="stat-icon-wrapper orange"><GoGear /></div>
                                             <div className="stat-info">
-                                                <div className="stat-value">30+</div>
-                                                <div className="stat-title">Skills Mastered</div>
+                                                <div className="stat-value">Data Eng</div>
+                                                <div className="stat-title">PySpark, Fabric, ADF</div>
                                             </div>
                                         </div>
                                         <div className="stat-card">
-                                            <div className="stat-icon-wrapper green"><GoGear /></div>
+                                            <div className="stat-icon-wrapper green"><FiCpu /></div>
                                             <div className="stat-info">
-                                                <div className="stat-value">ETL & Data</div>
-                                                <div className="stat-title">Azure & GCP Fabric</div>
+                                                <div className="stat-value">AI & ML Stack</div>
+                                                <div className="stat-title">RAG, LangChain, Neo4j</div>
                                             </div>
                                         </div>
                                         <div className="stat-card">
                                             <div className="stat-icon-wrapper blue"><FiLayers /></div>
                                             <div className="stat-info">
                                                 <div className="stat-value">Full Stack</div>
-                                                <div className="stat-title">NextJS, React, APIs</div>
+                                                <div className="stat-title">NextJS, React, FastAPI</div>
                                             </div>
                                         </div>
                                     </div>
@@ -623,20 +734,24 @@ const Experience = () => {
                                             <h4>Domain Distribution</h4>
                                             <div className="distribution-bars">
                                                 <div className="dist-item">
-                                                    <div className="dist-header"><span>Data Engineering & Pipelines</span><span>40%</span></div>
-                                                    <div className="dist-track"><div className="dist-fill" style={{width: '40%', background: '#ff7b00'}}></div></div>
+                                                    <div className="dist-header"><span>Data Engineering & Pipelines</span><span>45%</span></div>
+                                                    <div className="dist-track"><div className="dist-fill" style={{width: '45%', background: '#ff7b00'}}></div></div>
                                                 </div>
                                                 <div className="dist-item">
-                                                    <div className="dist-header"><span>Backend API & Services</span><span>25%</span></div>
-                                                    <div className="dist-track"><div className="dist-fill" style={{width: '25%', background: '#ff9d42'}}></div></div>
+                                                    <div className="dist-header"><span>AI & Machine Learning</span><span>30%</span></div>
+                                                    <div className="dist-track"><div className="dist-fill" style={{width: '30%', background: '#10a37f'}}></div></div>
                                                 </div>
                                                 <div className="dist-item">
-                                                    <div className="dist-header"><span>Databases & Warehousing</span><span>20%</span></div>
-                                                    <div className="dist-track"><div className="dist-fill" style={{width: '20%', background: '#ffbe85'}}></div></div>
+                                                    <div className="dist-header"><span>Backend API & Services</span><span>13%</span></div>
+                                                    <div className="dist-track"><div className="dist-fill" style={{width: '13%', background: '#ff9d42'}}></div></div>
                                                 </div>
                                                 <div className="dist-item">
-                                                    <div className="dist-header"><span>Frontend Frameworks</span><span>15%</span></div>
-                                                    <div className="dist-track"><div className="dist-fill" style={{width: '15%', background: '#ffffff'}}></div></div>
+                                                    <div className="dist-header"><span>Databases & Warehousing</span><span>8%</span></div>
+                                                    <div className="dist-track"><div className="dist-fill" style={{width: '8%', background: '#ffbe85'}}></div></div>
+                                                </div>
+                                                <div className="dist-item">
+                                                    <div className="dist-header"><span>Frontend Frameworks</span><span>4%</span></div>
+                                                    <div className="dist-track"><div className="dist-fill" style={{width: '4%', background: '#ffffff'}}></div></div>
                                                 </div>
                                             </div>
                                         </div>

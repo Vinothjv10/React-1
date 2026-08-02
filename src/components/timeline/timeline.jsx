@@ -248,7 +248,7 @@ export default function CustomizedTimeline() {
               onMouseLeave={handleMouseLeave}
             >
               <Typography variant="h6" component="div" className="timeline__card-title">
-                Saturam
+                Vinoth
               </Typography>
               <Typography className="timeline__card-subtitle">
                 Big Data Engineer
