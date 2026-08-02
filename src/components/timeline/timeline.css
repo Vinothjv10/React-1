@@ -4,20 +4,73 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem 2rem 4rem;
+    padding: 2rem 2rem 4rem;
     box-sizing: border-box;
     position: relative;
     background: radial-gradient(circle at 50% 50%, #0d0d1c 0%, #030308 100%);
     scroll-snap-align: start;
     scroll-snap-stop: always;
+    overflow: hidden;
+}
+
+/* Futuristic grid overlay graphic */
+.timeline-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 123, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 123, 0, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center;
+    mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ambient pulsing background graphics */
+.timeline-glow-1 {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 123, 0, 0.06) 0%, transparent 70%);
+    top: 15%;
+    left: 12%;
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+.timeline-glow-2 {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(255, 123, 0, 0.04) 0%, transparent 70%);
+    bottom: 12%;
+    right: 12%;
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+    100% { transform: scale(1.15) translate(15px, -15px); opacity: 1; }
 }
 
 .timeline-section h2 {
     color: var(--color-primary);
-    margin-bottom: 3.5rem;
+    margin-bottom: 2rem;
     letter-spacing: 2px;
     font-weight: 600;
     text-align: center;
+    z-index: 2;
 }
 
 /* Material UI Overrides */
@@ -26,6 +79,7 @@
     max-width: 1100px;
     margin: 0 auto !important;
     padding: 0 !important;
+    z-index: 2;
 }
 
 .MuiTimelineItem-root {
@@ -44,25 +98,45 @@
     z-index: 10;
 }
 
+/* Highlighted/active/hovered timeline dot and icon active states */
+.MuiTimelineDot-root.active,
+.MuiTimelineDot-root.hovered,
 .MuiTimelineItem-root:hover .MuiTimelineDot-root {
     border-color: #ff9d42 !important;
-    box-shadow: 0 0 25px rgba(255, 123, 0, 0.4), inset 0 0 10px rgba(255, 123, 0, 0.2) !important;
-    transform: scale(1.18);
-    background-color: rgba(255, 123, 0, 0.08) !important;
+    box-shadow: 0 0 25px rgba(255, 123, 0, 0.5), inset 0 0 10px rgba(255, 123, 0, 0.25) !important;
+    transform: scale(1.18) !important;
+    background-color: rgba(255, 123, 0, 0.15) !important;
+    color: #ffffff !important; /* Make the icon light up in bright white */
 }
 
-/* Animated Flowing Timeline Connector Line */
+/* Animated Flowing Timeline Connector Line (Default: Faint, slow flow) */
 .MuiTimelineConnector-root {
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 123, 0, 0.75) 50%,
-        rgba(255, 255, 255, 0.08) 100%
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 123, 0, 0.15) 50%,
+        rgba(255, 255, 255, 0.05) 100%
     ) !important;
     background-size: 100% 200% !important;
-    animation: connectorFlow 2.8s linear infinite !important;
-    width: 2.5px !important;
-    box-shadow: 0 0 8px rgba(255, 123, 0, 0.25);
+    animation: connectorFlow 5s linear infinite !important;
+    width: 2px !important;
+    box-shadow: none;
+    transition: all 0.4s ease !important;
+}
+
+/* Highlighted Connector Line (Active step in Autoplay or User Hover: Bright, fast glowing flow) */
+.MuiTimelineConnector-root.highlighted {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 123, 0, 0.25) 0%,
+        rgba(255, 123, 0, 1) 50%,
+        rgba(255, 123, 0, 0.25) 100%
+    ) !important;
+    background-size: 100% 200% !important;
+    animation: connectorFlow 1.2s linear infinite !important; /* Sped up flow rate */
+    width: 3.5px !important;
+    box-shadow: 0 0 15px rgba(255, 123, 0, 0.55),
+                0 0 5px rgba(255, 123, 0, 0.35) !important;
 }
 
 @keyframes connectorFlow {
@@ -72,11 +146,6 @@
     100% {
         background-position: 0% -200%;
     }
-}
-
-.MuiTimelineItem-root:hover .MuiTimelineConnector-root {
-    animation-duration: 1.5s !important; /* Speed up flow on hover to indicate focus */
-    box-shadow: 0 0 12px rgba(255, 123, 0, 0.4);
 }
 
 .MuiTimelineOppositeContent-root {
@@ -277,7 +346,7 @@
 
 @media screen and (max-width: 768px) {
     .timeline-section {
-        padding: 6rem 1rem 3rem;
+        padding: 2rem 1rem 3rem;
     }
     
     .timeline-section h2 {

@@ -88,6 +88,8 @@ export default function CustomizedTimeline() {
 
   return (
     <section id="timeline" className="timeline-section" ref={sectionRef}>
+      <div className="timeline-glow-1"></div>
+      <div className="timeline-glow-2"></div>
       <h2>TIMELINE</h2>
 
       <Timeline position="alternate">
@@ -100,18 +102,16 @@ export default function CustomizedTimeline() {
             Sept 2019
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'college' || hoverItem === 'college' ? 'highlighted' : ''} />
             <TimelineDot 
+              className={`${activeItem === 'college' ? 'active' : ''} ${hoverItem === 'college' ? 'hovered' : ''}`}
               onClick={() => handleClick('college')}
               onMouseEnter={() => handleMouseEnter('college')}
               onMouseLeave={handleMouseLeave}
-              style={{
-                borderColor: (activeItem === 'college' || hoverItem === 'college') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
-              }}
             >
               <SchoolIcon />
             </TimelineDot>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'college' || hoverItem === 'college' ? 'highlighted' : ''} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <div 
@@ -144,19 +144,16 @@ export default function CustomizedTimeline() {
             Aug 2021 - Sep 2022 (1.2 years)
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'internship' || hoverItem === 'internship' ? 'highlighted' : ''} />
             <TimelineDot 
-              color="primary" 
+              className={`${activeItem === 'internship' ? 'active' : ''} ${hoverItem === 'internship' ? 'hovered' : ''}`}
               onClick={() => handleClick('internship')}
               onMouseEnter={() => handleMouseEnter('internship')}
               onMouseLeave={handleMouseLeave}
-              style={{
-                borderColor: (activeItem === 'internship' || hoverItem === 'internship') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
-              }}
             >
               <WorkIcon />
             </TimelineDot>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'internship' || hoverItem === 'internship' ? 'highlighted' : ''} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <div 
@@ -190,20 +187,16 @@ export default function CustomizedTimeline() {
             March 2023
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'graduation' || hoverItem === 'graduation' ? 'highlighted' : ''} />
             <TimelineDot 
-              color="primary" 
-              variant="outlined" 
+              className={`${activeItem === 'graduation' ? 'active' : ''} ${hoverItem === 'graduation' ? 'hovered' : ''}`}
               onClick={() => handleClick('graduation')}
               onMouseEnter={() => handleMouseEnter('graduation')}
               onMouseLeave={handleMouseLeave}
-              style={{
-                borderColor: (activeItem === 'graduation' || hoverItem === 'graduation') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
-              }}
             >
               <GraduationIcon />
             </TimelineDot>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'graduation' || hoverItem === 'graduation' ? 'highlighted' : ''} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <div 
@@ -236,19 +229,16 @@ export default function CustomizedTimeline() {
             Aug 2023 - Present
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'current' || hoverItem === 'current' ? 'highlighted' : ''} />
             <TimelineDot 
-              color="secondary" 
+              className={`${activeItem === 'current' ? 'active' : ''} ${hoverItem === 'current' ? 'hovered' : ''}`}
               onClick={() => handleClick('current')}
               onMouseEnter={() => handleMouseEnter('current')}
               onMouseLeave={handleMouseLeave}
-              style={{
-                borderColor: (activeItem === 'current' || hoverItem === 'current') ? 'var(--color-primary)' : 'rgba(255, 123, 0, 0.3)'
-              }}
             >
               <EngineeringIcon />
             </TimelineDot>
-            <TimelineConnector />
+            <TimelineConnector className={activeItem === 'current' || hoverItem === 'current' ? 'highlighted' : ''} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <div 
