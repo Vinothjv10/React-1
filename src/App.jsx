@@ -10,8 +10,11 @@ import Testimonials from './components/testimonials/testimonials'
 import Contact from './components/contact/Contact'
 import Footer from './components/footer/Footer'
 import Timeline from './components/timeline/timeline'
+import useScrollSnap from './hooks/useScrollSnap'
 
 const App = () => {
+    useScrollSnap();
+
     return (
         <>
             <VideoIntro />

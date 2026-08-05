@@ -184,6 +184,10 @@
     transition: var(--transition);
 }
 
+.portfolio__item-description {
+    display: none;
+}
+
 .portfolio__item-cta {
     display: flex;
     gap: 1rem;
@@ -310,6 +314,23 @@
         padding: 2.5rem 0 3rem; /* Decreased padding further */
     }
     
+    .portfolio__item-hover-content {
+        display: none !important;
+    }
+
+    .portfolio__item h3 {
+        margin: 1rem 0 0.5rem;
+    }
+
+    .portfolio__item-description {
+        display: block !important;
+        font-size: 0.85rem;
+        color: var(--color-light);
+        line-height: 1.5;
+        margin-bottom: 1.2rem;
+        text-align: left;
+    }
+
     .portfolio__container {
         width: var(--container-width-md);
         gap: 1.5rem;

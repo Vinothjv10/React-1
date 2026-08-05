@@ -232,6 +232,10 @@
 }
 
 /* Card inner texts styling */
+.timeline__card-date {
+    display: none;
+}
+
 .timeline__card-title {
     font-size: 0.98rem !important;
     font-weight: 600 !important;
@@ -357,6 +361,21 @@
         min-height: 250px;
     }
     
+    .MuiTimelineOppositeContent-root {
+        display: none !important;
+    }
+
+    .MuiTimelineContent-root {
+        padding: 0.5rem 0.5rem 0.5rem 1rem !important;
+    }
+
+    .MuiTimelineItem-root:nth-child(odd) .timeline__card,
+    .MuiTimelineItem-root:nth-child(even) .timeline__card {
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
     .timeline__card {
         height: auto;
         min-height: 180px;
@@ -364,6 +383,15 @@
         max-width: 100%;
     }
     
+    .timeline__card-date {
+        display: block !important;
+        font-size: 0.78rem !important;
+        color: var(--color-primary) !important;
+        margin-bottom: 0.3rem !important;
+        font-weight: 500 !important;
+        font-family: 'Poppins', sans-serif !important;
+    }
+
     .timeline__skills {
         max-height: none;
         opacity: 1;

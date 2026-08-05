@@ -1,26 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import './nav.css';
 
-import { AiOutlineHome } from 'react-icons/ai'
-import { AiOutlineUser } from 'react-icons/ai'
-import { BiBook } from 'react-icons/bi'
+import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineUser } from 'react-icons/ai';
+import { BiBook } from 'react-icons/bi';
 import { AiOutlineFundProjectionScreen } from 'react-icons/ai';
 import { RiContactsBook2Line } from 'react-icons/ri';
 
-import { useState } from 'react';
-
 const Nav = () => {
-    const [activeNav, setActiveNav] = useState('#')
+    const [activeNav, setActiveNav] = useState('#');
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > window.innerHeight * 0.5) {
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Check initially
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <nav>
+        <nav className={isVisible ? 'visible' : ''}>
             <a href="# " onClick={() => setActiveNav('#')} className={activeNav === '#' ? 'active' : ''}> <AiOutlineHome /></a>
             <a href="#about" onClick={() => setActiveNav('#about')} className={activeNav === '#about' ? 'active' : ''}> <AiOutlineUser /></a>
             <a href="#experience" onClick={() => setActiveNav('#experience')} className={activeNav === '#experience' ? 'active' : ''}> <BiBook /></a>
             <a href="#portfolio" onClick={() => setActiveNav('#portfolio')} className={activeNav === '#portfolio' ? 'active' : ''}> <AiOutlineFundProjectionScreen /></a>
             <a href="#contact" onClick={() => setActiveNav('#contact')} className={activeNav === '#contact' ? 'active' : ''}> <RiContactsBook2Line /></a>
-
         </nav>
-    )
-}
+    );
+};
 
-export default Nav
+export default Nav;

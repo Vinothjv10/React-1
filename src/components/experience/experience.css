@@ -803,6 +803,11 @@
 
 /* ==========Media Queries (Small Devices) ========== */
 @media screen and (max-width: 768px) {
+    .window-path,
+    .window-tab {
+        display: none !important;
+    }
+
     .dashboard__stats-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
