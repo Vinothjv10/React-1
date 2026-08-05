@@ -23,7 +23,17 @@ export default function CustomizedTimeline() {
   const [activeItem, setActiveItem] = useState('college'); // Starts on the first card
   const [hoverItem, setHoverItem] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
 
   // Staggered scroll entrance animation
@@ -92,7 +102,7 @@ export default function CustomizedTimeline() {
       <div className="timeline-glow-2"></div>
       <h2>TIMELINE</h2>
 
-      <Timeline position="alternate">
+      <Timeline position={isMobile ? "right" : "alternate"}>
         <TimelineItem>
           <TimelineOppositeContent
             sx={{ m: 'auto 0' }}
@@ -120,6 +130,9 @@ export default function CustomizedTimeline() {
               onMouseEnter={() => handleMouseEnter('college')}
               onMouseLeave={handleMouseLeave}
             >
+              <Typography className="timeline__card-date">
+                Sept 2019
+              </Typography>
               <Typography variant="h6" component="div" className="timeline__card-title">
                 Government College of Engineering, Salem
               </Typography>
@@ -162,6 +175,9 @@ export default function CustomizedTimeline() {
               onMouseEnter={() => handleMouseEnter('internship')}
               onMouseLeave={handleMouseLeave}
             >
+              <Typography className="timeline__card-date">
+                Aug 2021 - Sep 2022 (1.2 years)
+              </Typography>
               <Typography variant="h6" component="div" className="timeline__card-title">
                 Honeycomb Technologies
               </Typography>
@@ -205,6 +221,9 @@ export default function CustomizedTimeline() {
               onMouseEnter={() => handleMouseEnter('graduation')}
               onMouseLeave={handleMouseLeave}
             >
+              <Typography className="timeline__card-date">
+                March 2023
+              </Typography>
               <Typography variant="h6" component="div" className="timeline__card-title">
                 Government College of Engineering, Salem
               </Typography>
@@ -247,6 +266,9 @@ export default function CustomizedTimeline() {
               onMouseEnter={() => handleMouseEnter('current')}
               onMouseLeave={handleMouseLeave}
             >
+              <Typography className="timeline__card-date">
+                Aug 2023 - Present
+              </Typography>
               <Typography variant="h6" component="div" className="timeline__card-title">
                 Vinoth
               </Typography>

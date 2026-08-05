@@ -245,6 +245,7 @@ const Portfolio = () => {
 
                                 <span className="portfolio__item-tag">{category}</span>
                                 <h3>{title}</h3>
+                                <p className="portfolio__item-description">{description}</p>
                                 <div className="portfolio__item-cta">
                                     <a href={github} className='btn' target='_blank' rel="noopener noreferrer">
                                         <FiGithub style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} /> Github
