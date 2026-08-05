@@ -31,9 +31,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-    scroll-padding-top: 0;
+    scroll-behavior: auto;
     overflow-x: hidden;
 }
 
@@ -71,14 +69,11 @@ h1 {
 
 section {
     margin-top: 8rem;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
     /* height: 100vh; */
 }
 
 footer {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    /* footer styles */
 }
 
 section>h2,
