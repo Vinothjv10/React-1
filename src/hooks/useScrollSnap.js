@@ -56,14 +56,24 @@ const useScrollSnap = () => {
     detectInitialSection();
 
     // GSAP Scroll animation helper
-    const scrollToSection = (index) => {
+    const scrollToSection = (index, targetScrollY = null) => {
       if (index < 0 || index >= sectionsRef.current.length) return;
       
+      const targetSection = sectionsRef.current[index];
+      const viewportHeight = window.innerHeight;
+      const secTop = targetSection.offsetTop;
+      const secHeight = targetSection.offsetHeight;
+      
+      let targetY = secTop;
+      if (targetScrollY !== null) {
+        targetY = targetScrollY;
+      } else if (index < activeIndex.current && secHeight > viewportHeight) {
+        // Scrolling UP to a tall section -> Snap to its bottom so user enters it naturally from the bottom
+        targetY = secTop + secHeight - viewportHeight;
+      }
+
       isAnimating.current = true;
       activeIndex.current = index;
-      
-      const targetSection = sectionsRef.current[index];
-      const targetY = targetSection.offsetTop;
 
       gsap.to(window, {
         scrollTo: { y: targetY, autoKill: false },
@@ -150,22 +160,53 @@ const useScrollSnap = () => {
       const currentSec = sectionsRef.current[activeIndex.current];
       if (!currentSec) return;
 
-      const diff = currentScroll - currentSec.offsetTop;
-      const threshold = window.innerHeight * 0.3; // 30% scroll depth (less sensitive)
+      const secTop = currentSec.offsetTop;
+      const secHeight = currentSec.offsetHeight;
+      const secBottom = secTop + secHeight;
+      const viewportHeight = window.innerHeight;
+      const threshold = 100; // 100px threshold to leave section boundaries
 
-      if (diff > threshold) {
-        // Scrolled down past 30% -> Move to next section
-        scrollToSection(activeIndex.current + 1);
-      } else if (diff < -threshold) {
-        // Scrolled up past 30% -> Move to previous section
-        scrollToSection(activeIndex.current - 1);
+      if (secHeight > viewportHeight) {
+        // TALL SECTION: User scrolls normally within the section
+        const maxScrollInside = secBottom - viewportHeight;
+
+        if (currentScroll > maxScrollInside + threshold) {
+          // Scrolled down past the bottom of the section by 100px -> Move to next section
+          scrollToSection(activeIndex.current + 1);
+        } else if (currentScroll < secTop - threshold) {
+          // Scrolled up past the top of the section by 100px -> Move to previous section
+          scrollToSection(activeIndex.current - 1);
+        } else {
+          // Inside the section. If they stop scrolling near the boundaries, snap back to lock.
+          scrollTimeout.current = setTimeout(() => {
+            if (!isAnimating.current) {
+              const currentScrollPos = window.scrollY;
+              if (currentScrollPos - secTop < threshold) {
+                // Snap back to top of the section
+                scrollToSection(activeIndex.current, secTop);
+              } else if (maxScrollInside - currentScrollPos < threshold) {
+                // Snap back to bottom of the section
+                scrollToSection(activeIndex.current, maxScrollInside);
+              }
+            }
+          }, 400);
+        }
       } else {
-        // Did not cross threshold, set a debounce to snap back to the top of current section when scrolling stops
-        scrollTimeout.current = setTimeout(() => {
-          if (!isAnimating.current) {
-            scrollToSection(activeIndex.current);
-          }
-        }, 400); // 400ms debounce (less eager/sensitive)
+        // SHORT SECTION: Standard snap behavior based on 30% viewport threshold
+        const diff = currentScroll - secTop;
+        const shortThreshold = viewportHeight * 0.3;
+
+        if (diff > shortThreshold) {
+          scrollToSection(activeIndex.current + 1);
+        } else if (diff < -shortThreshold) {
+          scrollToSection(activeIndex.current - 1);
+        } else {
+          scrollTimeout.current = setTimeout(() => {
+            if (!isAnimating.current) {
+              scrollToSection(activeIndex.current, secTop);
+            }
+          }, 400);
+        }
       }
 
       lastScrollY.current = currentScroll;
