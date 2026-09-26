@@ -1,17 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinoth J</title>
+    <title>Vinoth J — Data Engineer</title>
+    <meta name="description" content="Vinoth J — Big Data Engineer building cloud-native lakehouse platforms, Airflow/dbt pipelines and AI-powered analytics on GCP and Azure. Microsoft Certified (DP-700, DP-600, DP-100).">
+    <meta name="theme-color" content="#030308" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Vinoth J — Data Engineer">
+    <meta property="og:description" content="Big Data Engineer — lakehouse platforms, Airflow/dbt pipelines and AI-powered analytics on GCP and Azure.">
+    <meta property="og:image" content="%PUBLIC_URL%/me.png">
 
-    <link rel="icon" type="image/png" href="./me.png">
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/me.png">
 
+    <!-- Apply the saved theme before first paint so there is no flash -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('vj-theme');
+                var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) { }
+        })();
+    </script>
 </head>
 
 <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 </body>
 

@@ -1,0 +1,54 @@
+/* Fixed glass pill, matches the existing nav styling */
+.theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1001;
+    width: 2.9rem;
+    height: 2.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--color-light);
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    color: var(--color-primary);
+    border-color: rgba(255, 123, 0, 0.4);
+    box-shadow: var(--glow-orange);
+    transform: translateY(-2px);
+}
+
+.theme-toggle__icon {
+    display: flex;
+    animation: theme-toggle-spin 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes theme-toggle-spin {
+    from {
+        transform: rotate(-90deg) scale(0.6);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+}

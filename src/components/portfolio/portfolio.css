@@ -19,7 +19,7 @@
     margin: 0 auto;
     cursor: grab;
     scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) rgba(255, 255, 255, 0.02);
+    scrollbar-color: var(--color-primary) rgba(var(--fg-rgb), 0.02);
 }
 
 /* Custom Sleek Scrollbar */
@@ -29,12 +29,12 @@
 }
 
 .portfolio__container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(var(--fg-rgb), 0.02);
     border-radius: 10px;
 }
 
 .portfolio__container::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #ff7b00, #ff5100);
+    background: linear-gradient(90deg, var(--color-primary), #ff5100);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(255, 123, 0, 0.35);
 }
@@ -48,7 +48,7 @@
 .portfolio__item {
     flex: 0 0 calc((100% - 2 * 2.5rem) / 3);
     background: var(--bg-glass);
-    border: 1px solid rgba(255, 255, 255, 0.12); /* More visible default glass border */
+    border: 1px solid rgba(var(--fg-rgb), 0.12); /* More visible default glass border */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 1.5rem;
@@ -137,7 +137,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(4, 4, 10, 0.94);
+    background: rgba(var(--bg-rgb), 0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     display: flex;
@@ -222,7 +222,7 @@
 }
 
 .portfolio__item-more:hover {
-    background: rgba(4, 4, 10, 0.95) !important;
+    background: rgba(var(--bg-rgb), 0.95) !important;
     border: 1px solid var(--color-primary) !important;
     box-shadow: 0 15px 40px rgba(255, 123, 0, 0.2), var(--glow-orange);
     backdrop-filter: blur(20px);

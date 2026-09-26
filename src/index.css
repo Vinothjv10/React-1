@@ -10,6 +10,11 @@
     text-decoration: none;
 }
 
+/* ================ Theme tokens ================
+   Dark is the default. Light mode flips the same tokens via [data-theme="light"],
+   which public/index.html sets before first paint. Component CSS uses
+   rgba(var(--fg-rgb), a) / rgba(var(--bg-rgb), a) for overlays and glass so
+   both themes come from one set of rules. */
 :root {
     --color-bg: #030308;
     --color-bg-variant: #0a0a14;
@@ -17,6 +22,10 @@
     --color-primary-variant: rgba(255, 123, 0, 0.25);
     --color-white: #ffffff;
     --color-light: rgba(255, 255, 255, 0.65);
+
+    /* foreground / background as RGB triplets for alpha overlays */
+    --fg-rgb: 255, 255, 255;
+    --bg-rgb: 8, 8, 16;
 
     --transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -28,10 +37,32 @@
     --border-glass: 1px solid rgba(255, 255, 255, 0.06);
     --bg-glass: rgba(8, 8, 16, 0.85);
     --glow-orange: 0 0 30px rgba(255, 123, 0, 0.35);
+
+    --body-gradient: radial-gradient(circle at 50% 0%, #0d0d1c 0%, #030308 80%);
+    color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+    --color-bg: #f7f6f3;
+    --color-bg-variant: #ecebe6;
+    --color-primary: #e06600;
+    --color-primary-variant: rgba(224, 102, 0, 0.22);
+    --color-white: #0f0f14;
+    --color-light: rgba(15, 15, 20, 0.68);
+
+    --fg-rgb: 15, 15, 20;
+    --bg-rgb: 255, 255, 255;
+
+    --border-glass: 1px solid rgba(15, 15, 20, 0.08);
+    --bg-glass: rgba(255, 255, 255, 0.82);
+    --glow-orange: 0 0 30px rgba(224, 102, 0, 0.22);
+
+    --body-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #f0efeb 80%);
+    color-scheme: light;
 }
 
 html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     overflow-x: hidden;
 }
 
@@ -44,8 +75,60 @@ body {
     background: var(--color-bg);
     color: var(--color-white);
     line-height: 1.7;
-    background-image: radial-gradient(circle at 50% 0%, #0d0d1c 0%, #030308 80%);
+    background-image: var(--body-gradient);
     overflow-x: hidden;
+    transition: background-color 400ms ease, color 400ms ease;
+}
+
+::selection {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+/* Keyboard users get a visible focus ring; mouse users keep the clean look */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* ================ Lenis smooth scroll ================ */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+/* ================ Hover effects ================ */
+/* Radial highlight that follows the pointer on tilted cards (set by useTilt) */
+.tilt-glow {
+    position: relative;
+    will-change: transform;
+}
+
+.tilt-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 123, 0, 0.14), transparent 60%);
+}
+
+.tilt-glow:hover::after {
+    opacity: 1;
 }
 
 /* ================ General Styles ============== */
@@ -108,7 +191,7 @@ a:hover {
     border-radius: 50px;
     cursor: pointer;
     border: 1px solid var(--color-primary);
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(var(--fg-rgb), 0.02);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     transition: var(--transition);
@@ -124,12 +207,13 @@ a:hover {
 
 .btn-primary {
     background: linear-gradient(135deg, #ff7b00, #ff5100);
-    color: var(--color-white);
+    color: #ffffff;
     border: 1px solid rgba(255, 123, 0, 0.2);
 }
 
 .btn-primary:hover {
     background: linear-gradient(135deg, #ff9533, #ff6a22);
+    color: #ffffff;
     box-shadow: 0 10px 25px -5px rgba(255, 123, 0, 0.4);
 }
 
@@ -137,6 +221,22 @@ img {
     display: block;
     width: 100%;
     object-fit: cover;
+}
+
+/* ================ Motion preferences ================
+   JS effects check prefers-reduced-motion themselves; this covers CSS. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* ==========Media Queries (Medium Devices) ========== */
