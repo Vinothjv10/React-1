@@ -93,7 +93,7 @@
 .dashboard__card {
     /* Premium Gradient Border Theme */
     background: linear-gradient(var(--bg-glass), var(--bg-glass)) padding-box,
-                linear-gradient(135deg, rgba(255, 123, 0, 0.3), rgba(255, 255, 255, 0.05)) border-box;
+                linear-gradient(135deg, rgba(255, 123, 0, 0.3), rgba(var(--fg-rgb), 0.05)) border-box;
     border: 1px solid transparent;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -154,7 +154,7 @@
     font-weight: 700;
     color: var(--color-white);
     margin-bottom: 0.3rem;
-    background: linear-gradient(to right, #ffffff, #ffa552);
+    background: linear-gradient(to right, var(--color-white), #ffa552);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -185,8 +185,8 @@
 }
 
 .filter__btn {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(var(--fg-rgb), 0.03);
+    border: 1px solid rgba(var(--fg-rgb), 0.08);
     color: var(--color-light);
     padding: 0.8rem 1.8rem;
     border-radius: 50px;
@@ -226,8 +226,8 @@
 
 .filter__btn.active {
     /* Gradient Border Theme for Active Button */
-    background: linear-gradient(#ff7b00, #ff5100) padding-box,
-                linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.2)) border-box;
+    background: linear-gradient(var(--color-primary), #ff5100) padding-box,
+                linear-gradient(135deg, var(--color-white), rgba(var(--fg-rgb), 0.2)) border-box;
     border: 1px solid transparent;
     color: var(--color-white);
     box-shadow: var(--glow-orange);
@@ -252,7 +252,7 @@
 .testimonial {
     /* CSS Gradient Border Theme */
     background: linear-gradient(var(--bg-glass), var(--bg-glass)) padding-box,
-                linear-gradient(135deg, rgba(255, 123, 0, 0.25), rgba(255, 255, 255, 0.04)) border-box;
+                linear-gradient(135deg, rgba(255, 123, 0, 0.25), rgba(var(--fg-rgb), 0.04)) border-box;
     border: 1px solid transparent;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -281,7 +281,7 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.08),
+        rgba(var(--fg-rgb), 0.08),
         transparent
     );
     transition: 0.8s ease-out;
@@ -359,9 +359,9 @@
     height: 100%;
     overflow: hidden;
     border-radius: 50%;
-    border: 1.5px solid #ff7b00;
+    border: 1.5px solid var(--color-primary);
     box-shadow: 0 0 20px rgba(255, 123, 0, 0.45);
-    background: #0d0d1c;
+    background: var(--color-bg-variant);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s;
 }
 
@@ -489,7 +489,7 @@
 
 /* Custom Swiper Controls Style */
 .swiper-pagination-clickable .swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(var(--fg-rgb), 0.3) !important;
     width: 12px;
     height: 12px;
     opacity: 1;
@@ -511,7 +511,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(3, 3, 8, 0.82);
+    background: rgba(var(--bg-rgb), 0.82);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     display: flex;
@@ -530,8 +530,8 @@
 
 .review__modal {
     /* Gradient Border Theme for Modal */
-    background: linear-gradient(rgba(10, 10, 20, 0.97), rgba(10, 10, 20, 0.97)) padding-box,
-                linear-gradient(135deg, rgba(255, 123, 0, 0.4), rgba(255, 255, 255, 0.05)) border-box;
+    background: linear-gradient(rgba(var(--bg-rgb), 0.97), rgba(var(--bg-rgb), 0.97)) padding-box,
+                linear-gradient(135deg, rgba(255, 123, 0, 0.4), rgba(var(--fg-rgb), 0.05)) border-box;
     border: 1px solid transparent;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), var(--glow-orange);
     border-radius: 2.2rem;
@@ -551,8 +551,8 @@
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(var(--fg-rgb), 0.05);
+    border: 1px solid rgba(var(--fg-rgb), 0.1);
     color: var(--color-light);
     width: 2.5rem;
     height: 2.5rem;
@@ -614,8 +614,8 @@
 .form__group input,
 .form__group select,
 .form__group textarea {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(var(--fg-rgb), 0.03);
+    border: 1px solid rgba(var(--fg-rgb), 0.08);
     border-radius: 0.9rem;
     padding: 0.85rem 1.1rem;
     color: var(--color-white);
@@ -630,7 +630,7 @@
 .form__group textarea:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 12px rgba(255, 123, 0, 0.3);
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(var(--fg-rgb), 0.06);
 }
 
 .form__group textarea {
@@ -654,7 +654,7 @@
     cursor: pointer;
     overflow: hidden;
     transition: var(--transition);
-    background: #0d0d1c;
+    background: var(--color-bg-variant);
 }
 
 .avatar__opt img {
@@ -689,7 +689,7 @@
     border: none;
     cursor: pointer;
     font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.15);
+    color: rgba(var(--fg-rgb), 0.15);
     padding: 0;
     transition: transform 200ms ease, color 200ms ease;
 }
@@ -724,7 +724,7 @@
 .spinner {
     width: 1.3rem;
     height: 1.3rem;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(var(--fg-rgb), 0.3);
     border-top-color: var(--color-white);
     border-radius: 50%;
     animation: spin 800ms linear infinite;
@@ -740,7 +740,7 @@
     position: fixed;
     bottom: 2.5rem;
     right: 2.5rem;
-    background: rgba(10, 10, 20, 0.95);
+    background: rgba(var(--bg-rgb), 0.95);
     border: 1px solid var(--color-primary);
     box-shadow: var(--glow-orange);
     padding: 1.1rem 1.8rem;

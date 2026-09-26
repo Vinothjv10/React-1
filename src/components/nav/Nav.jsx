@@ -7,8 +7,16 @@ import { BiBook } from 'react-icons/bi';
 import { AiOutlineFundProjectionScreen } from 'react-icons/ai';
 import { RiContactsBook2Line } from 'react-icons/ri';
 
+const LINKS = [
+    { href: '#home', icon: <AiOutlineHome /> },
+    { href: '#about', icon: <AiOutlineUser /> },
+    { href: '#experience', icon: <BiBook /> },
+    { href: '#portfolio', icon: <AiOutlineFundProjectionScreen /> },
+    { href: '#contact', icon: <RiContactsBook2Line /> },
+];
+
 const Nav = () => {
-    const [activeNav, setActiveNav] = useState('#');
+    const [activeNav, setActiveNav] = useState('#home');
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -28,13 +36,38 @@ const Nav = () => {
         };
     }, []);
 
+    // Highlight follows the section in view, not just the last click
+    useEffect(() => {
+        const sections = LINKS.map((l) => document.querySelector(l.href)).filter(Boolean);
+        if (sections.length === 0) return undefined;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visible = entries
+                    .filter((e) => e.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                if (visible) setActiveNav(`#${visible.target.id}`);
+            },
+            { rootMargin: '-35% 0px -45% 0px', threshold: [0, 0.2, 0.5] }
+        );
+        sections.forEach((s) => observer.observe(s));
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <nav className={isVisible ? 'visible' : ''}>
-            <a href="# " onClick={() => setActiveNav('#')} className={activeNav === '#' ? 'active' : ''}> <AiOutlineHome /></a>
-            <a href="#about" onClick={() => setActiveNav('#about')} className={activeNav === '#about' ? 'active' : ''}> <AiOutlineUser /></a>
-            <a href="#experience" onClick={() => setActiveNav('#experience')} className={activeNav === '#experience' ? 'active' : ''}> <BiBook /></a>
-            <a href="#portfolio" onClick={() => setActiveNav('#portfolio')} className={activeNav === '#portfolio' ? 'active' : ''}> <AiOutlineFundProjectionScreen /></a>
-            <a href="#contact" onClick={() => setActiveNav('#contact')} className={activeNav === '#contact' ? 'active' : ''}> <RiContactsBook2Line /></a>
+            {LINKS.map(({ href, icon }) => (
+                <a
+                    key={href}
+                    href={href}
+                    onClick={() => setActiveNav(href)}
+                    className={activeNav === href ? 'active' : ''}
+                    aria-label={href.slice(1)}
+                    aria-current={activeNav === href ? 'true' : undefined}
+                >
+                    {icon}
+                </a>
+            ))}
         </nav>
     );
 };

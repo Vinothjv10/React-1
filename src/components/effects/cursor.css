@@ -1,0 +1,27 @@
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 123, 0, 0.7);
+    box-shadow: 0 0 18px rgba(255, 123, 0, 0.25);
+    pointer-events: none;
+    opacity: 1;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        margin 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, background-color 0.3s ease;
+}
+
+.cursor-ring.is-active {
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    background: rgba(255, 123, 0, 0.12);
+}
+
+.cursor-ring.is-hidden {
+    opacity: 0;
+}

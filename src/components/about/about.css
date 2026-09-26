@@ -10,7 +10,7 @@
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 2rem;
-    background: linear-gradient(135deg, rgba(255, 123, 0, 0.15), rgba(8, 8, 16, 0.8), rgba(255, 123, 0, 0.05));
+    background: linear-gradient(135deg, rgba(255, 123, 0, 0.15), rgba(var(--bg-rgb), 0.8), rgba(255, 123, 0, 0.05));
     border: 1px solid rgba(255, 123, 0, 0.25);
     display: grid;
     place-items: center;
@@ -83,8 +83,8 @@
 }
 
 .about__card {
-    background: rgba(15, 15, 30, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(var(--bg-rgb), 0.85);
+    border: 1px solid rgba(var(--fg-rgb), 0.08);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-radius: 1.5rem;
@@ -92,7 +92,7 @@
     text-align: center;
     transition: var(--transition);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5),
-                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+                inset 0 1px 1px rgba(var(--fg-rgb), 0.1);
     position: relative;
     overflow: hidden;
 }
@@ -110,7 +110,7 @@
 }
 
 .about__card:hover {
-    background: rgba(25, 20, 35, 0.95);
+    background: rgba(var(--bg-rgb), 0.95);
     border: 1px solid rgba(255, 123, 0, 0.5);
     box-shadow: 0 15px 35px rgba(255, 123, 0, 0.25),
                 0 0 15px rgba(255, 123, 0, 0.15),
@@ -157,7 +157,7 @@
     width: 100%;
     font-size: 0.78rem;
     color: var(--color-light);
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    border-bottom: 1px dashed rgba(var(--fg-rgb), 0.08);
     padding-bottom: 0.25rem;
 }
 
@@ -183,10 +183,10 @@
 .tags-container small {
     font-size: 0.72rem;
     color: var(--color-light);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(var(--fg-rgb), 0.04);
     padding: 0.25rem 0.6rem;
     border-radius: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(var(--fg-rgb), 0.06);
     transition: var(--transition);
     display: inline-block;
     width: 100%;
@@ -217,7 +217,7 @@
 
 .text-highlight {
     font-weight: 600;
-    background: linear-gradient(90deg, #ff7b00, #ffb366);
+    background: linear-gradient(90deg, var(--color-primary), #ffb366);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;

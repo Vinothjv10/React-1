@@ -7,7 +7,7 @@
     padding: 2rem 2rem 4rem;
     box-sizing: border-box;
     position: relative;
-    background: radial-gradient(circle at 50% 50%, #0d0d1c 0%, #030308 100%);
+    background: radial-gradient(circle at 50% 50%, rgba(var(--bg-rgb), 0.5) 0%, rgba(var(--bg-rgb), 0.85) 100%);
     scroll-snap-align: start;
     scroll-snap-stop: always;
     overflow: hidden;
@@ -88,7 +88,7 @@
 
 /* Custom styled timeline dot */
 .MuiTimelineDot-root {
-    background-color: rgba(10, 10, 20, 0.9) !important;
+    background-color: rgba(var(--bg-rgb), 0.9) !important;
     border: 2px solid rgba(255, 123, 0, 0.3) !important;
     box-shadow: 0 0 15px rgba(255, 123, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.5) !important;
     color: var(--color-primary) !important;
@@ -106,16 +106,16 @@
     box-shadow: 0 0 25px rgba(255, 123, 0, 0.5), inset 0 0 10px rgba(255, 123, 0, 0.25) !important;
     transform: scale(1.18) !important;
     background-color: rgba(255, 123, 0, 0.15) !important;
-    color: #ffffff !important; /* Make the icon light up in bright white */
+    color: var(--color-white) !important; /* Make the icon light up in bright white */
 }
 
 /* Animated Flowing Timeline Connector Line (Default: Faint, slow flow) */
 .MuiTimelineConnector-root {
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.05) 0%,
+        rgba(var(--fg-rgb), 0.05) 0%,
         rgba(255, 123, 0, 0.15) 50%,
-        rgba(255, 255, 255, 0.05) 100%
+        rgba(var(--fg-rgb), 0.05) 100%
     ) !important;
     background-size: 100% 200% !important;
     animation: connectorFlow 5s linear infinite !important;
@@ -162,8 +162,8 @@
 
 /* Timeline Custom Glassmorphic Card styling */
 .timeline__card {
-    background: rgba(15, 15, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(var(--bg-rgb), 0.8);
+    border: 1px solid rgba(var(--fg-rgb), 0.08);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-radius: 1.2rem;
@@ -171,7 +171,7 @@
     text-align: left;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5),
-                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+                inset 0 1px 1px rgba(var(--fg-rgb), 0.05);
     width: 100%;
     max-width: 440px;
     height: 160px; /* Reduced static height to make it compact */
@@ -197,10 +197,10 @@
 
 /* Autoplay active state (No translate, no skills reveal, just border & subtle glow) */
 .timeline__card.active {
-    background: rgba(20, 20, 35, 0.9);
+    background: rgba(var(--bg-rgb), 0.9);
     border-color: rgba(255, 123, 0, 0.4);
     box-shadow: 0 12px 25px rgba(255, 123, 0, 0.12),
-                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+                inset 0 1px 1px rgba(var(--fg-rgb), 0.05);
 }
 
 .timeline__card.active::before {
@@ -214,7 +214,7 @@
 /* Hover and hovered states (Translate up, hide description, reveal skills) */
 .timeline__card:hover,
 .timeline__card.hovered {
-    background: rgba(24, 20, 38, 0.96);
+    background: rgba(var(--bg-rgb), 0.96);
     border-color: var(--color-primary);
     box-shadow: 0 15px 35px rgba(255, 123, 0, 0.22),
                 inset 0 1px 2px rgba(255, 123, 0, 0.1);
@@ -253,7 +253,7 @@
 /* Swap: Description is shown by default, collapses and hides on hover/hovered */
 .timeline__card-description {
     font-size: 0.82rem !important;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(var(--fg-rgb), 0.7);
     line-height: 1.4 !important;
     opacity: 1;
     max-height: 75px;
@@ -275,7 +275,7 @@
     flex-wrap: wrap;
     gap: 0.25rem;
     margin-top: auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(var(--fg-rgb), 0.06);
     padding-top: 0.6rem;
     opacity: 0;
     transform: translateY(8px);
@@ -319,7 +319,7 @@
 }
 
 .timeline__skills::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(var(--fg-rgb), 0.02);
 }
 
 .timeline__skills::-webkit-scrollbar-thumb {
